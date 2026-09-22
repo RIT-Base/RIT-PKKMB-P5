@@ -1,0 +1,38 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Header from '../components/Header.astro';
+import AboutUs from '../components/AboutUs.astro';
+import Divisions from '../components/Divisions.astro';
+import Showcase from '../components/Showcase.astro';
+import FAQ from '../components/FAQ.astro';
+import MoreSection from '../components/MoreSection.astro';
+import Footer from '../components/Footer.astro';
+
+import linksData from '../data/links.json';
+---
+
+<Layout title="Republic of Information Technology (RIT) — PKKMB 2026">
+  <!-- 1. Hero & Header Section -->
+  <Header
+    communityJoinUrl={linksData.community_join}
+    contactUsUrl={linksData.contact_us}
+  />
+
+  <!-- 2. About Us Section -->
+  <AboutUs />
+
+  <!-- 3. Divisions Carousel Section -->
+  <Divisions />
+
+  <!-- 4. Showcase & Lightbox Section -->
+  <Showcase />
+
+  <!-- 5. FAQ Interactive Stepper Section -->
+  <FAQ />
+
+  <!-- 6. More Ecosystem Links Section -->
+  <MoreSection />
+
+  <!-- 7. Footer & Disclaimer Section -->
+  <Footer />
+</Layout>

@@ -1,0 +1,121 @@
+---
+import '../styles/global.css';
+import BackgroundVideo from '../components/BackgroundVideo.astro';
+import Preloader from '../components/Preloader.astro';
+import Drawer from '../components/Drawer.astro';
+
+interface Props {
+  title?: string;
+  description?: string;
+}
+
+const {
+  title = 'RIT PKKMB 2026 — Persona 5 Edition',
+  description = 'Website Promosi Republic of Information Technology (RIT) untuk Mahasiswa Baru FKOMINFO Universitas Garut 2026. The Digital Awakening!',
+} = Astro.props;
+---
+
+<!doctype html>
+<html lang="id">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <link rel="icon" type="image/svg+xml" href="/assets/svg/rit_p5.svg" />
+    <meta name="generator" content={Astro.generator} />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    
+    <!-- Preload Critical Priority Assets -->
+    <link rel="preload" href="/assets/audio/Royal%20Days_128k.mp3" as="audio" />
+    <link rel="preload" href="/assets/fonts/p5hatty.ttf" as="font" type="font/ttf" crossorigin />
+
+    <!-- Open Graph / Meta -->
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:image" content="/assets/svg/rit_p5.svg" />
+    <meta property="og:type" content="website" />
+  </head>
+
+  <body class="relative min-h-screen bg-[#050507] text-white overflow-x-hidden selection:bg-[#E60012] selection:text-white">
+    <!-- 3D Preloader Splash -->
+    <Preloader />
+
+    <!-- Ambient Looping Video Background for Desktop & Full View -->
+    <BackgroundVideo />
+
+    <!-- Game Canvas Scaler Outer Wrapper -->
+    <div id="game-canvas-outer" class="relative z-10 w-full min-h-screen flex justify-center items-start overflow-hidden">
+      <!-- 440px Game Canvas Frame (Smooth & Transparent, No Red Border) -->
+      <main id="game-canvas-inner" class="relative w-[440px] min-h-screen bg-transparent overflow-x-hidden flex-shrink-0">
+        <!-- Persona 5 Wrap Line Border Decoration Overlay -->
+        <img
+          src="/assets/images/wrap_line_m.png"
+          alt="Wrap Line"
+          class="absolute top-0 left-0 w-full h-full object-fill pointer-events-none z-15 opacity-80"
+        />
+
+        <!-- Slot Content (Header, About, Divisions, Showcase, FAQ, More, Footer) -->
+        <div class="relative z-20 w-full">
+          <slot />
+        </div>
+      </main>
+    </div>
+
+    <!-- Navigation Drawer (Positioned outside scaled container so fixed backdrop covers full viewport) -->
+    <Drawer />
+
+    <!-- Dynamic Game Canvas Scaling Script -->
+    <script>
+      function updateGameCanvasScale() {
+        const w = window.innerWidth;
+        const inner = document.getElementById('game-canvas-inner') as HTMLElement | null;
+        const outer = document.getElementById('game-canvas-outer') as HTMLElement | null;
+        if (!inner || !outer) return;
+
+        if (w < 440) {
+          const scale = w / 440;
+          outer.style.justifyContent = 'flex-start';
+          inner.style.transformOrigin = 'top left';
+          inner.style.transform = `scale(${scale})`;
+          outer.style.width = w + 'px';
+          outer.style.height = (inner.offsetHeight * scale) + 'px';
+        } else {
+          outer.style.justifyContent = 'center';
+          inner.style.transformOrigin = 'top center';
+          inner.style.transform = 'none';
+          outer.style.width = '100%';
+          outer.style.height = 'auto';
+        }
+      }
+
+      // Portal modals & fixed controls to document.body so fixed positioning covers full screen
+      function portalModals() {
+        ['disclaimer-modal', 'showcase-lightbox', 'right-controls'].forEach((id) => {
+          const el = document.getElementById(id);
+          if (el && el.parentElement !== document.body) {
+            document.body.appendChild(el);
+          }
+        });
+      }
+
+      window.addEventListener('resize', updateGameCanvasScale);
+      window.addEventListener('DOMContentLoaded', () => {
+        portalModals();
+        updateGameCanvasScale();
+      });
+      window.addEventListener('load', () => {
+        portalModals();
+        updateGameCanvasScale();
+      });
+
+      // Keep height synced if content dynamically shifts
+      const innerEl = document.getElementById('game-canvas-inner');
+      if (innerEl && 'ResizeObserver' in window) {
+        const ro = new ResizeObserver(() => {
+          updateGameCanvasScale();
+        });
+        ro.observe(innerEl);
+      }
+    </script>
+  </body>
+</html>

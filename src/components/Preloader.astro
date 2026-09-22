@@ -1,0 +1,83 @@
+---
+// Preloader component with Persona 5 3D rotating "Take Your Time" graphic & sessionStorage smart cache
+---
+
+<div id="p5-preloader" class="fixed inset-0 z-50 flex flex-col items-center justify-center bg-[#0A0A0D] transition-all duration-700 pointer-events-auto select-none">
+  <!-- 3D Rotating Take Your Time Graphic -->
+  <div class="relative z-10 flex flex-col items-center justify-center">
+    <div class="animate-spin-3d">
+      <img src="/assets/svg/more_bg1.svg" alt="Take Your Time" class="w-48 h-48 md:w-56 md:h-56 object-contain" />
+    </div>
+    
+    <!-- P5 dynamic loading text indicator -->
+    <div class="mt-6 flex items-center gap-2 font-mono text-sm tracking-widest text-white/80 uppercase font-bold">
+      <span class="inline-block w-2 h-2 bg-[#E60012] animate-ping"></span>
+      <span class="tracking-widest">Wake up, Get up, Get out there.</span>
+    </div>
+  </div>
+</div>
+
+<script is:inline>
+  // Fast check: if already visited in this session, immediately hide before full paint
+  try {
+    if (sessionStorage.getItem('p5_preloader_seen') === '1') {
+      var p = document.getElementById('p5-preloader');
+      if (p) {
+        p.style.transition = 'opacity 0.2s ease-out';
+        p.style.opacity = '0';
+        p.style.pointerEvents = 'none';
+        setTimeout(function() {
+          p.style.display = 'none';
+        }, 200);
+      }
+    }
+  } catch (e) {}
+</script>
+
+<script>
+  const preloader = document.getElementById('p5-preloader');
+  let seen = false;
+  try {
+    seen = sessionStorage.getItem('p5_preloader_seen') === '1';
+  } catch (e) {}
+
+  function dismissPreloader(fast = false) {
+    if (!preloader || preloader.style.display === 'none') return;
+    if (fast) {
+      preloader.style.transition = 'opacity 0.2s ease-out';
+      preloader.style.opacity = '0';
+      preloader.style.pointerEvents = 'none';
+      setTimeout(() => {
+        preloader.style.display = 'none';
+      }, 200);
+    } else {
+      preloader.style.transition = 'opacity 0.7s ease-out';
+      preloader.style.opacity = '0';
+      preloader.style.pointerEvents = 'none';
+      setTimeout(() => {
+        preloader.style.display = 'none';
+      }, 700);
+    }
+  }
+
+  if (seen) {
+    dismissPreloader(true);
+  } else {
+    window.addEventListener('load', () => {
+      setTimeout(() => {
+        try {
+          sessionStorage.setItem('p5_preloader_seen', '1');
+        } catch (e) {}
+        dismissPreloader(false);
+      }, 900);
+    });
+
+    // Safety fallback: auto-dismiss after 3s if window load takes longer
+    setTimeout(() => {
+      try {
+        sessionStorage.setItem('p5_preloader_seen', '1');
+      } catch (e) {}
+      dismissPreloader(false);
+    }, 3000);
+  }
+</script>

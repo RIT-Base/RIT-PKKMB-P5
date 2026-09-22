@@ -1,0 +1,57 @@
+---
+import aboutData from '../data/about.json';
+---
+
+<section id="about" class="relative w-full pt-16 pb-12 select-none overflow-hidden">
+  <!-- Section Title -->
+  <div class="px-3">
+    <img
+      src="/assets/svg/about_us_title.svg"
+      alt="About Us"
+      class="w-[286px] h-[81px] object-contain"
+      loading="lazy"
+      decoding="async"
+    />
+  </div>
+
+  <!-- Content Box with Frame text_m.svg -->
+  <div class="relative w-[438px] h-[310px] mx-auto">
+    <!-- Frame Background Container -->
+    <img
+      src="/assets/svg/text_m.svg"
+      alt="Text Container"
+      class="absolute inset-0 w-full h-full object-fill pointer-events-none z-10"
+      loading="lazy"
+      decoding="async"
+    />
+
+    <!-- Tagline SVG -->
+    <div class="absolute top-[40px] left-[55px] z-20 w-[287px]">
+      <img
+        src={aboutData.tagline_svg}
+        alt="About Us Tagline"
+        class="w-full h-auto object-contain"
+        loading="lazy"
+        decoding="async"
+      />
+    </div>
+
+    <!-- Narrative Description Text -->
+    <div class="absolute top-[110px] left-[57px] w-[320px] z-20">
+      <p class="font-sans text-white text-[14.5px] leading-[1.45] text-justify font-normal tracking-tight">
+        {aboutData.description}
+      </p>
+    </div>
+
+    <!-- Watermark Logo RIT P5 at bottom right -->
+    <div class="absolute bottom-[-45px] right-2 z-30 pointer-events-none">
+      <img
+        src="/assets/svg/rit-p5-as.svg"
+        alt="RIT Watermark"
+        class="w-[145px] h-[145px] object-contain"
+        loading="lazy"
+        decoding="async"
+      />
+    </div>
+  </div>
+</section>

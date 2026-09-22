@@ -1,0 +1,33 @@
+---
+// Ambient Looping Starfield Video Background from P5X
+---
+
+<div class="fixed inset-0 w-full h-full pointer-events-none z-0 overflow-hidden bg-[#07070A]">
+  <!-- Looping Starfield Video from P5X -->
+  <video
+    id="bg-star-video"
+    autoplay
+    loop
+    muted
+    playsinline
+    class="absolute inset-0 w-full h-full object-cover z-10"
+  >
+    <source src="/assets/video/p5x_bgstar_20230301.mp4" type="video/mp4" />
+  </video>
+</div>
+
+<script>
+  // Ensure video plays reliably across browsers
+  const bgVideo = document.getElementById('bg-star-video') as HTMLVideoElement;
+  if (bgVideo) {
+    bgVideo.play().catch(() => {
+      const playOnInteraction = () => {
+        bgVideo.play().catch(() => {});
+        window.removeEventListener('click', playOnInteraction);
+        window.removeEventListener('touchstart', playOnInteraction);
+      };
+      window.addEventListener('click', playOnInteraction);
+      window.addEventListener('touchstart', playOnInteraction);
+    });
+  }
+</script>

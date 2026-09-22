@@ -1,0 +1,23 @@
+<svg width="240" height="240" viewBox="0 0 240 240" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <filter id="p5glow" x="-20%" y="-20%" width="140%" height="140%">
+      <feDropShadow dx="0" dy="0" stdDeviation="6" flood-color="#E60012" flood-opacity="0.8"/>
+    </filter>
+  </defs>
+  <!-- Background circular badge in dark with red ring -->
+  <circle cx="120" cy="120" r="105" fill="#0A0A0D" stroke="#E60012" stroke-width="6" filter="url(#p5glow)"/>
+  <circle cx="120" cy="120" r="95" stroke="#FFFFFF" stroke-width="2" stroke-dasharray="6 6"/>
+  
+  <!-- Silhouette of Phantom Thief Hat with Star/Mask Cutout -->
+  <path d="M60 145 C65 140, 85 138, 95 130 C100 125, 95 100, 92 80 C90 65, 110 55, 130 55 C150 55, 160 70, 155 85 C150 100, 145 125, 150 130 C160 138, 180 140, 185 145 C190 150, 180 155, 120 155 C60 155, 55 150, 60 145 Z" fill="#E60012"/>
+  <path d="M70 143 C90 140, 110 138, 120 138 C130 138, 150 140, 170 143 C155 147, 135 148, 120 148 C105 148, 85 147, 70 143 Z" fill="#FFFFFF"/>
+  <polygon points="120,70 126,85 142,86 129,96 134,111 120,102 106,111 111,96 98,86 114,85" fill="#FFFFFF"/>
+
+  <!-- Persona 5 Text "TAKE YOUR TIME" -->
+  <g transform="rotate(-6 120 180)">
+    <rect x="35" y="166" width="170" height="30" fill="#E60012" transform="skewX(-12)"/>
+    <text x="120" y="188" fill="#FFFFFF" font-family="'Impact', 'Arial Black', sans-serif" font-weight="900" font-style="italic" font-size="20" letter-spacing="2" text-anchor="middle">
+      TAKE YOUR TIME
+    </text>
+  </g>
+</svg>

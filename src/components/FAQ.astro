@@ -1,0 +1,253 @@
+---
+import faqData from '../data/faq.json';
+---
+
+<section id="faq" class="relative w-full pb-12 select-none overflow-hidden">
+  <!-- Section Title (left: -10px in Figma) -->
+  <div class="px-0 -ml-[10px] mb-2">
+    <img
+      src="/assets/svg/faq_title.svg"
+      alt="FAQ"
+      class="w-[252px] h-[141px] object-contain"
+      loading="lazy"
+      decoding="async"
+    />
+  </div>
+
+  <!-- Stage: Cloud Dialogue Bubble with Questions (left: 5px, top: 3318px in Figma) -->
+  <div class="relative w-[431px] h-[283px] ml-[5px] z-20">
+    <!-- Dialogue Cloud Background from SVG -->
+    <img
+      src="/assets/svg/dialogue_cloud.svg"
+      alt="Question Cloud"
+      class="absolute inset-0 w-full h-full object-contain pointer-events-none"
+      loading="lazy"
+      decoding="async"
+    />
+
+    <!-- 4 Interactive Questions Inside Cloud (Figma coordinates) -->
+    <!-- Q1: top 55px (3373-3318), left 69px (74-5) -->
+    <button
+      type="button"
+      data-faq-id={faqData.questions[0].id}
+      data-faq-idx="0"
+      class="faq-q-btn absolute top-[55px] left-[69px] w-[297px] h-[40px] flex items-center justify-center px-3 text-center transition-all duration-200 focus:outline-none rounded"
+    >
+      <img
+        src="/assets/svg/faq_box_active.svg"
+        alt="Active Indicator"
+        class="faq-active-bg absolute inset-0 w-full h-full object-fill pointer-events-none hidden"
+        loading="lazy"
+        decoding="async"
+      />
+      <span class="faq-q-text relative z-10 font-p5 text-white text-[24px] tracking-tight transition-colors">
+        {faqData.questions[0].title}
+      </span>
+    </button>
+
+    <!-- Q2: top 102px (3420-3318), left 69px (74-5) -->
+    <button
+      type="button"
+      data-faq-id={faqData.questions[1].id}
+      data-faq-idx="1"
+      class="faq-q-btn absolute top-[102px] left-[69px] w-[297px] h-[40px] flex items-center justify-center px-3 text-center transition-all duration-200 focus:outline-none rounded"
+    >
+      <img
+        src="/assets/svg/faq_box_active.svg"
+        alt="Active Indicator"
+        class="faq-active-bg absolute inset-0 w-full h-full object-fill pointer-events-none hidden"
+        loading="lazy"
+        decoding="async"
+      />
+      <span class="faq-q-text relative z-10 font-p5 text-white text-[24px] tracking-tight transition-colors">
+        {faqData.questions[1].title}
+      </span>
+    </button>
+
+    <!-- Q3: top 159px (3477-3318), left 68px (73-5) -->
+    <button
+      type="button"
+      data-faq-id={faqData.questions[2].id}
+      data-faq-idx="2"
+      class="faq-q-btn absolute top-[159px] left-[68px] w-[297px] h-[40px] flex items-center justify-center px-2 text-center transition-all duration-200 focus:outline-none rounded"
+    >
+      <img
+        src="/assets/svg/faq_box_active.svg"
+        alt="Active Indicator"
+        class="faq-active-bg absolute inset-0 w-full h-full object-fill pointer-events-none hidden"
+        loading="lazy"
+        decoding="async"
+      />
+      <span class="faq-q-text relative z-10 font-p5 text-white text-[20px] tracking-tight transition-colors">
+        {faqData.questions[2].title}
+      </span>
+    </button>
+
+    <!-- Q4: top 214px (3532-3318), left 68px (73-5) -->
+    <button
+      type="button"
+      data-faq-id={faqData.questions[3].id}
+      data-faq-idx="3"
+      class="faq-q-btn absolute top-[214px] left-[68px] w-[297px] h-[40px] flex items-center justify-center px-3 text-center transition-all duration-200 focus:outline-none rounded"
+    >
+      <img
+        src="/assets/svg/faq_box_active.svg"
+        alt="Active Indicator"
+        class="faq-active-bg absolute inset-0 w-full h-full object-fill pointer-events-none hidden"
+        loading="lazy"
+        decoding="async"
+      />
+      <span class="faq-q-text relative z-10 font-p5 text-white text-[24px] tracking-tight transition-colors">
+        {faqData.questions[3].title}
+      </span>
+    </button>
+  </div>
+
+  <!-- Mascot Neko & Dialogue Box Stage (starts at top: 3477px in Figma, -mt-[124px] overlap with cloud) -->
+  <div class="relative w-full h-[490px] -mt-[124px] z-25">
+    <!-- Mascot RIT Neko Artwork from SVG (Figma: left: 126px, top: 3477px, w: 356px, h: 528px) -->
+    <div class="absolute left-[126px] top-0 w-[356px] h-[528px] pointer-events-none z-10">
+      <img
+        src="/assets/svg/rit_mascot.svg"
+        alt="RIT Mascot Neko"
+        class="w-full h-full object-contain drop-shadow-[0_12px_28px_rgba(0,0,0,0.8)]"
+        loading="lazy"
+        decoding="async"
+      />
+    </div>
+
+    <!-- Dialogue Box Container (Figma: top: 3634px, so 3634 - 3477 = 157px) -->
+    <div
+      id="dialogue-box-container"
+      class="absolute top-[157px] left-0 w-full h-[325px] z-30 cursor-pointer select-none"
+      title="Ketuk untuk lanjut"
+    >
+      <!-- Dialogue Box SVG Background (Figma: left: -261px, width: 829px, height: 325px) -->
+      <img
+        src="/assets/svg/dialogue_box.svg"
+        alt="Dialogue Box"
+        class="absolute top-0 left-[-261px] w-[829px] h-[325px] max-w-none pointer-events-none"
+        loading="lazy"
+        decoding="async"
+      />
+
+      <!-- Answer Text Container (Figma: top: 3851px, so 3851 - 3634 = 217px; left: 52px; width: 304px; height: 52px) -->
+      <div class="absolute top-[217px] left-[52px] w-[304px] h-[52px] overflow-hidden flex items-center">
+        <p
+          id="faq-answer-text"
+          class="font-sans text-white text-[13.5px] leading-[1.3] text-justify font-bold tracking-tight drop-shadow-sm transition-opacity duration-150"
+        >
+          {faqData.idle_text}
+        </p>
+      </div>
+
+      <!-- Hint Footer "Ketuk untuk Lanjut" (Figma: top: 3932px, so 3932 - 3634 = 298px; left: 11px; width: 104px; height: 12px) -->
+      <div class="absolute top-[298px] left-[11px] w-[104px] h-[12px] z-30 flex items-center">
+        <span id="faq-hint-text" class="font-sans text-white text-[9px] font-bold tracking-wider uppercase opacity-0 transition-opacity">
+          Ketuk untuk Lanjut
+        </span>
+      </div>
+
+      <!-- Blinking Continue Arrow "▼" (Figma: top: 3876px, so 3876 - 3634 = 242px; left: 356px) -->
+      <div class="absolute top-[242px] left-[356px] z-20">
+        <span id="faq-continue-arrow" class="text-white text-sm font-bold animate-p5-blink opacity-0 transition-opacity">
+          ▼
+        </span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<script define:vars={{ faqData }}>
+  let activeQuestionIdx = -1;
+  let currentBeatIdx = 0;
+
+  const qButtons = document.querySelectorAll('.faq-q-btn');
+  const answerText = document.getElementById('faq-answer-text');
+  const hintText = document.getElementById('faq-hint-text');
+  const continueArrow = document.getElementById('faq-continue-arrow');
+  const dialogueBox = document.getElementById('dialogue-box-container');
+
+  function resetToIdle() {
+    activeQuestionIdx = -1;
+    currentBeatIdx = 0;
+
+    // Reset all active indicators
+    qButtons.forEach((btn) => {
+      const bg = btn.querySelector('.faq-active-bg');
+      if (bg) bg.classList.add('hidden');
+    });
+
+    // Reset answer text to idle
+    if (answerText) {
+      answerText.style.opacity = '0';
+      setTimeout(() => {
+        answerText.textContent = faqData.idle_text;
+        answerText.style.opacity = '1';
+      }, 150);
+    }
+
+    if (hintText) hintText.classList.add('opacity-0');
+    if (continueArrow) continueArrow.classList.add('opacity-0');
+  }
+
+  function displayCurrentBeat() {
+    if (activeQuestionIdx < 0 || activeQuestionIdx >= faqData.questions.length) return;
+
+    const currentQ = faqData.questions[activeQuestionIdx];
+    const beats = currentQ.dialogue;
+
+    if (currentBeatIdx < beats.length) {
+      if (answerText) {
+        answerText.style.opacity = '0';
+        setTimeout(() => {
+          answerText.textContent = beats[currentBeatIdx];
+          answerText.style.opacity = '1';
+        }, 120);
+      }
+      if (hintText) hintText.classList.remove('opacity-0');
+      if (continueArrow) continueArrow.classList.remove('opacity-0');
+    } else {
+      // Completed all beats -> Reset back to idle
+      resetToIdle();
+    }
+  }
+
+  qButtons.forEach((btn) => {
+    btn.addEventListener('click', (e) => {
+      e.stopPropagation();
+      const idx = parseInt(btn.getAttribute('data-faq-idx') || '0', 10);
+
+      // If clicking the currently active question, just advance beat
+      if (activeQuestionIdx === idx) {
+        currentBeatIdx++;
+        displayCurrentBeat();
+        return;
+      }
+
+      // Activate clicked question
+      activeQuestionIdx = idx;
+      currentBeatIdx = 0;
+
+      // Update buttons visual (show/hide active background only; text stays white)
+      qButtons.forEach((b, bIdx) => {
+        const bg = b.querySelector('.faq-active-bg');
+        if (bIdx === idx) {
+          if (bg) bg.classList.remove('hidden');
+        } else {
+          if (bg) bg.classList.add('hidden');
+        }
+      });
+
+      displayCurrentBeat();
+    });
+  });
+
+  // Tap on dialogue box to advance beat
+  dialogueBox?.addEventListener('click', () => {
+    if (activeQuestionIdx !== -1) {
+      currentBeatIdx++;
+      displayCurrentBeat();
+    }
+  });
+</script>

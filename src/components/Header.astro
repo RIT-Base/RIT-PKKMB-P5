@@ -1,0 +1,192 @@
+---
+interface Props {
+  communityJoinUrl: string;
+  contactUsUrl: string;
+}
+
+const { communityJoinUrl, contactUsUrl } = Astro.props;
+---
+
+<header id="hero" class="relative w-full h-[950px] overflow-hidden select-none">
+  <!-- Header2 Graphic Background Decoration -->
+  <img
+    src="/assets/svg/hero-bg.svg"
+    alt="Header Decoration"
+    class="absolute top-0 left-0 w-full h-[660px] object-cover pointer-events-none z-10"
+  />
+
+  <!-- Top Navigation Bar (Logo, BGM, Menu Toggle) -->
+  <div class="relative z-20 flex items-center justify-between px-5 pt-5">
+    <!-- Logo RIT P5 -->
+    <a href="#hero" class="inline-block transition-transform hover:scale-105 active:scale-95">
+      <img
+        src="/assets/svg/rit_p5.svg"
+        alt="RIT Persona 5 Logo"
+        class="w-[116px] h-[116px] object-contain"
+      />
+    </a>
+
+    <!-- Right Controls: Music Toggle & Burger Menu -->
+    <div
+      id="right-controls"
+      class="fixed top-5 z-40 flex items-center gap-3 right-4 md:right-[calc(50%-220px+16px)]"
+    >
+      <!-- Music Audio Toggle Button -->
+      <button
+        id="bgm-toggle-btn"
+        type="button"
+        class="w-[52px] h-[52px] transition-transform hover:scale-105 active:scale-95 focus:outline-none"
+        aria-label="Toggle BGM"
+      >
+        <img
+          id="bgm-icon"
+          src="/assets/svg/menu_music_on.svg"
+          alt="BGM Toggle"
+          class="w-full h-full object-contain"
+        />
+      </button>
+
+      <!-- Menu Open Button -->
+      <button
+        id="drawer-open-btn"
+        type="button"
+        class="w-[52px] h-[53px] transition-transform hover:scale-105 active:scale-95 focus:outline-none"
+        aria-label="Open Navigation Menu"
+      >
+        <img
+          src="/assets/svg/menu_nav_open.svg"
+          alt="Menu Open"
+          class="w-full h-full object-contain"
+        />
+      </button>
+    </div>
+  </div>
+
+  <!-- Slogan from SVG -->
+  <div class="absolute top-[390px] left-0 right-0 z-20 flex justify-center px-6">
+    <img
+      src="/assets/svg/slogan.svg"
+      alt="Explore It With Us"
+      class="w-[344px] h-[300px] object-contain"
+    />
+  </div>
+
+  <!-- App Box Bar & CTA Buttons -->
+  <div class="absolute top-[664px] left-0 w-full h-[99px] z-20">
+    <!-- App Box Background Container from SVG -->
+    <img
+      src="/assets/svg/app_box_tb.svg"
+      alt="App Box"
+      class="absolute top-0 left-0 w-full h-full object-fill pointer-events-none"
+    />
+
+    <!-- Action Buttons -->
+    <div class="relative z-10 flex items-center px-6 left-7 right-6 pt-0 h-[90px]">
+      <!-- Gabung Komunitas RIT -->
+      <a
+        href={communityJoinUrl}
+        target="_blank"
+        rel="noopener noreferrer"
+        class="inline-block transition-transform hover:scale-105 active:scale-95"
+      >
+        <img
+          src="/assets/svg/btn_rit.svg"
+          alt="Gabung RIT"
+          class="w-[185px] h-[58px] object-contain drop-shadow-md"
+        />
+      </a>
+
+      <!-- Contact Person CS WhatsApp -->
+      <a
+        href={contactUsUrl}
+        target="_blank"
+        rel="noopener noreferrer"
+        class="inline-block transition-transform hover:scale-105 active:scale-95"
+      >
+        <img
+          src="/assets/svg/btn_cs.svg"
+          alt="Contact Person"
+          class="w-[185px] h-[58px] object-contain drop-shadow-md"
+        />
+      </a>
+    </div>
+  </div>
+
+  <!-- Hidden Audio Element for BGM -->
+  <audio id="bgm-audio" loop preload="auto" autoplay>
+    <source src="/assets/audio/Royal%20Days_128k.mp3" type="audio/mpeg" />
+  </audio>
+</header>
+
+<script>
+  // BGM Toggle & Autoplay Handler
+  const audio = document.getElementById('bgm-audio') as HTMLAudioElement;
+  const toggleBtn = document.getElementById('bgm-toggle-btn');
+  const icon = document.getElementById('bgm-icon') as HTMLImageElement;
+
+  if (toggleBtn && audio && icon) {
+    let isPlaying = true;
+    let userPaused = false;
+
+    const playAudio = () => {
+      if (userPaused) return;
+      audio.play().then(() => {
+        icon.src = '/assets/svg/menu_music_on.svg';
+        isPlaying = true;
+      }).catch((err) => {
+        console.warn('Autoplay prevented by browser, waiting for gesture:', err);
+      });
+    };
+
+    // Attempt autoplay immediately
+    playAudio();
+
+    // Fallback gesture listeners for unmuting/playing on first interaction
+    const onFirstGesture = () => {
+      if (!isPlaying && !userPaused) {
+        playAudio();
+      }
+      if (isPlaying || userPaused) {
+        ['click', 'touchstart', 'keydown'].forEach((evt) => {
+          window.removeEventListener(evt, onFirstGesture);
+        });
+      }
+    };
+
+    ['click', 'touchstart', 'keydown'].forEach((evt) => {
+      window.addEventListener(evt, onFirstGesture, { passive: true });
+    });
+
+    toggleBtn.addEventListener('click', (e) => {
+      e.stopPropagation();
+      if (isPlaying) {
+        audio.pause();
+        userPaused = true;
+        isPlaying = false;
+        icon.src = '/assets/images/nav/menu_music_off.png';
+      } else {
+        userPaused = false;
+        audio.play().then(() => {
+          icon.src = '/assets/svg/menu_music_on.svg';
+          isPlaying = true;
+        }).catch((err) => {
+          console.warn('Audio play prevented:', err);
+          icon.src = '/assets/images/nav/menu_music_off.png';
+          isPlaying = false;
+        });
+      }
+    });
+
+    audio.addEventListener('play', () => {
+      icon.src = '/assets/svg/menu_music_on.svg';
+      isPlaying = true;
+    });
+
+    audio.addEventListener('pause', () => {
+      if (userPaused) {
+        icon.src = '/assets/images/nav/menu_music_off.png';
+        isPlaying = false;
+      }
+    });
+  }
+</script> 

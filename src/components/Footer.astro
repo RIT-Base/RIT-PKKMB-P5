@@ -1,0 +1,173 @@
+---
+import linksData from '../data/links.json';
+---
+
+<footer class="relative w-full pt-8 pb-4 select-none overflow-hidden bg-transparent">
+  <!-- Back to Top Button from SVG -->
+  <div class="flex justify-center mb-10">
+    <a
+      href="#hero"
+      class="inline-block w-[100px] h-[100px] transition-transform hover:scale-110 active:scale-95 focus:outline-none"
+      aria-label="Back to Top"
+    >
+      <img src="/assets/svg/go_top.svg" alt="Back to Top" class="w-full h-full object-contain" loading="lazy" decoding="async" />
+    </a>
+  </div>
+
+  <!-- Social Media Links (Instagram, YouTube, Discord, GitHub) from SVGs -->
+  <div class="flex items-center justify-center gap-5 mb-10">
+    <a
+      href={linksData.socials.instagram}
+      target="_blank"
+      rel="noopener noreferrer"
+      class="w-[60px] h-[60px] transition-transform hover:scale-110 active:scale-95"
+      aria-label="Instagram"
+    >
+      <img src="/assets/svg/followus_ig.svg" alt="Instagram" class="w-full h-full object-contain" loading="lazy" decoding="async" />
+    </a>
+
+    <a
+      href={linksData.socials.youtube}
+      target="_blank"
+      rel="noopener noreferrer"
+      class="w-[60px] h-[60px] transition-transform hover:scale-110 active:scale-95"
+      aria-label="YouTube"
+    >
+      <img src="/assets/svg/followus_yt.svg" alt="YouTube" class="w-full h-full object-contain" loading="lazy" decoding="async" />
+    </a>
+
+    <a
+      href={linksData.socials.discord}
+      target="_blank"
+      rel="noopener noreferrer"
+      class="w-[60px] h-[60px] transition-transform hover:scale-110 active:scale-95"
+      aria-label="Discord"
+    >
+      <img src="/assets/svg/followus_ds.svg" alt="Discord" class="w-full h-full object-contain" loading="lazy" decoding="async" />
+    </a>
+
+    <a
+      href={linksData.socials.github}
+      target="_blank"
+      rel="noopener noreferrer"
+      class="w-[60px] h-[60px] transition-transform hover:scale-110 active:scale-95"
+      aria-label="GitHub"
+    >
+      <img src="/assets/svg/followus_git.svg" alt="GitHub" class="w-full h-full object-contain" loading="lazy" decoding="async" />
+    </a>
+  </div>
+
+  <!-- Footer Bottom Bar (Box with RIT & FKOMINFO logos, copyright, disclaimer) -->
+  <div class="relative w-full bg-[#0A0A0D] py-5 px-4 flex flex-col items-center">
+    <!-- Partner Logos: RIT & FKOMINFO -->
+    <div class="flex items-center justify-center gap-4 mb-3">
+      <img
+        src="/assets/svg/footer_rit.svg"
+        alt="RIT Logo"
+        class="w-[45px] h-[45px] object-contain"
+        loading="lazy"
+        decoding="async"
+      />
+      <div class="w-[1px] h-6 bg-white/20"></div>
+      <img
+        src="/assets/svg/footer_fkominfo.svg"
+        alt="FKOMINFO UNIGA Logo"
+        class="w-[45px] h-[45px] object-contain"
+        loading="lazy"
+        decoding="async"
+      />
+    </div>
+
+    <!-- Legal Copyright Disclaimer Text -->
+    <p class="font-sans text-white/70 text-[11px] leading-[1.4] text-center font-normal tracking-tight max-w-[380px] mb-2">
+      © 2026 Republic of Information Technology (RIT). All rights reserved.<br />
+      © ATLUS. © SEGA. All rights reserved.
+    </p>
+
+    <!-- Disclaimer Modal Trigger Link -->
+    <button
+      id="disclaimer-trigger-btn"
+      type="button"
+      class="font-mono text-[#E60012] text-[11px] font-bold tracking-widest uppercase hover:underline focus:outline-none transition-colors"
+    >
+      [DISCLAIMER]
+    </button>
+  </div>
+
+  <!-- Legal Disclaimer Pop-up Modal -->
+  <div
+    id="disclaimer-modal"
+    class="fixed inset-0 z-50 flex items-center justify-center bg-black/85 backdrop-blur-sm opacity-0 pointer-events-none transition-opacity duration-300 p-4 select-none"
+  >
+    <div class="relative max-w-[420px] w-full mx-4 bg-[#0A0A0D] border-2 border-[#E60012] rounded-lg p-6 shadow-2xl">
+      <!-- Modal Close Button -->
+      <button
+        id="disclaimer-close-btn"
+        type="button"
+        class="absolute top-3 right-3 text-white hover:text-[#E60012] font-p5 text-xl font-bold focus:outline-none"
+      >
+        ✕
+      </button>
+
+      <div class="flex items-center gap-2 mb-4 border-b border-[#E60012]/40 pb-2">
+        <span class="inline-block w-3 h-3 bg-[#E60012] skew-x-[-12deg]"></span>
+        <h3 class="font-p5 text-white text-lg font-bold italic tracking-wide">
+          LEGAL & CREATIVE DISCLAIMER
+        </h3>
+      </div>
+
+      <div class="font-sans text-white/85 text-[13px] leading-[1.6] space-y-3 text-justify">
+        <p>
+          Website promosi ini merupakan karya eksplorasi visual non-komersial yang dibuat oleh komunitas <strong>Republic of Information Technology (RIT)</strong> untuk kegiatan Pengenalan Kehidupan Kampus bagi Mahasiswa Baru (PKKMB) Fakultas Komunikasi dan Informatika Universitas Garut 2026.
+        </p>
+        <p>
+          Seluruh aset, tipografi, dan tema visual terinspirasi langsung dari seri permainan <em>Persona 5 / Persona 5: The Phantom X</em>. Seluruh hak cipta, merek dagang, dan kepemilikan intelektual karakter, elemen grafis, serta musik sepenuhnya merupakan milik <strong>ATLUS Co., Ltd.</strong> dan <strong>SEGA CORPORATION</strong>.
+        </p>
+        <p class="text-white/60 text-xs italic">
+          Proyek ini murni edukatif dan tidak diperjualbelikan atau digunakan untuk tujuan komersial apapun.
+        </p>
+      </div>
+
+      <div class="mt-6 flex justify-end">
+        <button
+          id="disclaimer-ok-btn"
+          type="button"
+          class="px-5 py-2 bg-[#E60012] hover:bg-[#FF1F2D] text-white font-p5 text-sm font-bold uppercase rounded skew-x-[-10deg] transition-transform active:scale-95"
+        >
+          I UNDERSTAND
+        </button>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<script>
+  const disclaimerModal = document.getElementById('disclaimer-modal');
+  const triggerBtn = document.getElementById('disclaimer-trigger-btn');
+  const closeBtn = document.getElementById('disclaimer-close-btn');
+  const okBtn = document.getElementById('disclaimer-ok-btn');
+
+  function openModal() {
+    if (disclaimerModal) {
+      disclaimerModal.style.opacity = '1';
+      disclaimerModal.style.pointerEvents = 'auto';
+    }
+  }
+
+  function closeModal() {
+    if (disclaimerModal) {
+      disclaimerModal.style.opacity = '0';
+      disclaimerModal.style.pointerEvents = 'none';
+    }
+  }
+
+  triggerBtn?.addEventListener('click', openModal);
+  closeBtn?.addEventListener('click', closeModal);
+  okBtn?.addEventListener('click', closeModal);
+
+  disclaimerModal?.addEventListener('click', (e) => {
+    if (e.target === disclaimerModal) {
+      closeModal();
+    }
+  });
+</script>

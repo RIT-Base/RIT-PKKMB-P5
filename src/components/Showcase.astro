@@ -1,0 +1,287 @@
+---
+import showcaseData from '../data/showcase.json';
+---
+
+<section id="showcase" class="relative w-full pt-16 select-none overflow-hidden">
+  <!-- Section Title -->
+  <div class="px-2 mb-2">
+    <img
+      src="/assets/svg/showcase_title.svg"
+      alt="Showcase"
+      class="w-[430px] h-auto object-contain"
+      loading="lazy"
+      decoding="async"
+    />
+  </div>
+
+  <!-- Showcase Main Container Box with Frame wrap_m.svg -->
+  <div class="relative w-[443px] h-[480px] mx-auto">
+    <!-- Frame Background Container from SVG -->
+    <img
+      src="/assets/svg/wrap_m.svg"
+      alt="Showcase Box"
+      class="absolute inset-0 w-full h-full object-fill pointer-events-none z-10 -translate-y-[90px]"
+      loading="lazy"
+      decoding="async"
+    />
+
+    <!-- Project Card Title SVG (Graphical title from SVG, without text overlay) -->
+    <div class="absolute top-[35px] left-[90px] w-[260px] h-[85px] z-20 flex items-center justify-center">
+      <img
+        id="showcase-title-img"
+        src={showcaseData[0].title_svg}
+        alt="Project Title Card"
+        class="w-full h-full object-contain"
+        loading="lazy"
+        decoding="async"
+      />
+    </div>
+
+    <!-- Prev Arrow Button from SVG -->
+    <button
+      id="showcase-prev-btn"
+      type="button"
+      class="absolute left-3 top-[170px] z-30 w-[45px] h-[55px] transition-transform hover:scale-110 active:scale-95 focus:outline-none"
+      aria-label="Previous Project"
+    >
+      <img src="/assets/svg/prev_arrow.svg" alt="Previous" class="w-full h-full object-contain" loading="lazy" decoding="async" />
+    </button>
+
+    <!-- Next Arrow Button from SVG -->
+    <button
+      id="showcase-next-btn"
+      type="button"
+      class="absolute right-3 top-[170px] z-30 w-[45px] h-[55px] transition-transform hover:scale-110 active:scale-95 focus:outline-none"
+      aria-label="Next Project"
+    >
+      <img src="/assets/svg/next_arrow.svg" alt="Next" class="w-full h-full object-contain" loading="lazy" decoding="async" />
+    </button>
+
+    <!-- Project Description Text -->
+    <div class="absolute top-[135px] left-[85px] w-[280px] h-[145px] z-20 overflow-y-auto">
+      <p id="showcase-desc-text" class="font-sans text-white text-[13.5px] leading-[1.45] text-justify font-normal tracking-tight">
+        {showcaseData[0].desc}
+      </p>
+    </div>
+
+    <!-- Action Button showcase-open: standalone, positioned independently -->
+    <a
+      id="showcase-open-link"
+      href={showcaseData[0].url || '#'}
+      target="_blank"
+      rel="noopener noreferrer"
+      class={`absolute bottom-[143px] left-[85px] z-20 inline-block transition-transform hover:scale-105 active:scale-95 ${showcaseData[0].url ? '' : 'hidden'}`}
+      aria-label="Open Project Demo/Repo"
+    >
+      <img
+        src="/assets/svg/showcase_open.svg"
+        alt="Open Project"
+        class="w-[122px] h-[56px] object-contain"
+        loading="lazy"
+        decoding="async"
+      />
+    </a>
+
+    <!-- Thumbnail Frame & Image with Zoom Trigger: standalone, positioned independently -->
+    <div class="absolute bottom-[50px] right-[20px] z-20 w-[190px] h-[150px]">
+      <!-- Thumbnail Frame from SVG -->
+      <img
+        src={showcaseData[0].thumbnail_frame || '/assets/svg/thumbnail.svg'}
+        alt="Thumbnail Frame"
+        class="absolute inset-0 w-full h-full object-contain pointer-events-none z-10"
+        loading="lazy"
+        decoding="async"
+      />
+
+      <!-- Thumbnail Image Overlay -->
+      <div class="absolute top-[12px] left-[18px] w-[160px] h-[115px] z-20 overflow-hidden rounded">
+        <img
+          id="showcase-thumb-img"
+          src={showcaseData[0].thumbnail_overlay}
+          alt="Thumbnail Preview"
+          class="w-full h-full object-cover"
+          loading="lazy"
+          decoding="async"
+        />
+      </div>
+
+      <!-- Zoom Button -->
+      <button
+        id="showcase-zoom-btn"
+        type="button"
+        class="absolute -top-3 -right-2 z-30 w-[45px] h-[44px] transition-transform hover:scale-115 active:scale-95 focus:outline-none"
+        aria-label="Zoom Image Gallery"
+      >
+        <img
+          src="/assets/svg/zoom.svg"
+          alt="Zoom"
+          class="w-full h-full object-contain drop-shadow-md"
+          loading="lazy"
+          decoding="async"
+        />
+      </button>
+    </div>
+  </div>
+
+  <!-- Lightbox Modal for Zoom Gallery -->
+  <div
+    id="showcase-lightbox"
+    class="fixed inset-0 z-50 flex items-center justify-center bg-black/85 backdrop-blur-sm opacity-0 pointer-events-none transition-opacity duration-300 select-none p-4"
+  >
+    <!-- Modal Preview Card Container (max-w-[420px] matches phone frame) -->
+    <div class="relative w-full max-w-[420px] mx-auto flex flex-col items-center justify-center">
+      <!-- Modal Close Button (Floating close to top-right of the preview card) -->
+      <button
+        id="lightbox-close-btn"
+        type="button"
+        class="absolute -top-3 -right-2 z-50 w-10 h-10 flex items-center justify-center bg-[#E60012] text-white font-p5 text-xl font-bold rounded-full border-2 border-white transition-transform hover:scale-110 active:scale-95 focus:outline-none shadow-xl"
+        aria-label="Close Lightbox"
+      >
+        ✕
+      </button>
+
+      <!-- Prev Gallery Image Button from SVG -->
+      <button
+        id="lightbox-prev-btn"
+        type="button"
+        class="absolute -left-2 sm:-left-3 top-1/2 -translate-y-1/2 z-50 w-10 h-12 transition-transform hover:scale-110 active:scale-95 focus:outline-none"
+        aria-label="Previous Image"
+      >
+        <img src="/assets/svg/prev_arrow.svg" alt="Prev" class="w-full h-full object-contain filter drop-shadow-lg" loading="lazy" decoding="async" />
+      </button>
+
+      <!-- Image Preview Stage -->
+      <div class="relative w-full flex flex-col items-center justify-center px-4">
+        <img
+          id="lightbox-main-img"
+          src={showcaseData[0].gallery[0]}
+          alt="Preview"
+          class="w-full max-h-[68vh] object-contain rounded-lg border-2 border-[#E60012] shadow-2xl bg-[#0A0A0D] transition-all duration-300"
+          loading="lazy"
+          decoding="async"
+        />
+        <!-- Gallery Counter -->
+        <div id="lightbox-counter" class="mt-3 font-mono font-bold text-white text-xs tracking-widest bg-[#0A0A0D]/90 px-4 py-1 rounded border border-[#E60012]/50 shadow-md">
+          1 / {showcaseData[0].gallery.length}
+        </div>
+      </div>
+
+      <!-- Next Gallery Image Button from SVG -->
+      <button
+        id="lightbox-next-btn"
+        type="button"
+        class="absolute -right-2 sm:-right-3 top-1/2 -translate-y-1/2 z-50 w-10 h-12 transition-transform hover:scale-110 active:scale-95 focus:outline-none"
+        aria-label="Next Image"
+      >
+        <img src="/assets/svg/next_arrow.svg" alt="Next" class="w-full h-full object-contain filter drop-shadow-lg" loading="lazy" decoding="async" />
+      </button>
+    </div>
+  </div>
+</section>
+
+<script define:vars={{ showcaseData }}>
+  let projectIndex = 0;
+  let galleryIndex = 0;
+  const totalProjects = showcaseData.length;
+
+  const titleImg = document.getElementById('showcase-title-img');
+  const descEl = document.getElementById('showcase-desc-text');
+  const thumbImg = document.getElementById('showcase-thumb-img');
+  const openLink = document.getElementById('showcase-open-link');
+
+  // Lightbox elements
+  const lightbox = document.getElementById('showcase-lightbox');
+  const lightboxImg = document.getElementById('lightbox-main-img');
+  const lightboxCounter = document.getElementById('lightbox-counter');
+  const zoomBtn = document.getElementById('showcase-zoom-btn');
+  const closeBtn = document.getElementById('lightbox-close-btn');
+  const prevImgBtn = document.getElementById('lightbox-prev-btn');
+  const nextImgBtn = document.getElementById('lightbox-next-btn');
+
+  function updateProject(idx) {
+    projectIndex = idx;
+    const proj = showcaseData[idx];
+    if (titleImg) {
+      titleImg.src = proj.title_svg;
+    }
+    if (descEl) {
+      descEl.textContent = proj.desc;
+    }
+    if (thumbImg) {
+      thumbImg.src = proj.thumbnail_overlay;
+    }
+    if (openLink) {
+      if (proj.url && proj.url.trim() !== '') {
+        openLink.href = proj.url;
+        openLink.classList.remove('hidden');
+      } else {
+        openLink.href = '#';
+        openLink.classList.add('hidden');
+      }
+    }
+    galleryIndex = 0;
+  }
+
+  document.getElementById('showcase-prev-btn')?.addEventListener('click', () => {
+    const nextIdx = (projectIndex - 1 + totalProjects) % totalProjects;
+    updateProject(nextIdx);
+  });
+
+  document.getElementById('showcase-next-btn')?.addEventListener('click', () => {
+    const nextIdx = (projectIndex + 1) % totalProjects;
+    updateProject(nextIdx);
+  });
+
+  // Lightbox Logic
+  function updateLightboxImage() {
+    const currentGallery = showcaseData[projectIndex].gallery;
+    if (lightboxImg) {
+      lightboxImg.style.opacity = '0';
+      setTimeout(() => {
+        lightboxImg.src = currentGallery[galleryIndex];
+        lightboxImg.style.opacity = '1';
+      }, 150);
+    }
+    if (lightboxCounter) {
+      lightboxCounter.textContent = `${galleryIndex + 1} / ${currentGallery.length}`;
+    }
+  }
+
+  zoomBtn?.addEventListener('click', () => {
+    galleryIndex = 0;
+    updateLightboxImage();
+    if (lightbox) {
+      lightbox.style.opacity = '1';
+      lightbox.style.pointerEvents = 'auto';
+    }
+  });
+
+  closeBtn?.addEventListener('click', () => {
+    if (lightbox) {
+      lightbox.style.opacity = '0';
+      lightbox.style.pointerEvents = 'none';
+    }
+  });
+
+  // Close lightbox on backdrop click
+  lightbox?.addEventListener('click', (e) => {
+    if (e.target === lightbox) {
+      lightbox.style.opacity = '0';
+      lightbox.style.pointerEvents = 'none';
+    }
+  });
+
+  prevImgBtn?.addEventListener('click', (e) => {
+    e.stopPropagation();
+    const currentGallery = showcaseData[projectIndex].gallery;
+    galleryIndex = (galleryIndex - 1 + currentGallery.length) % currentGallery.length;
+    updateLightboxImage();
+  });
+
+  nextImgBtn?.addEventListener('click', (e) => {
+    e.stopPropagation();
+    const currentGallery = showcaseData[projectIndex].gallery;
+    galleryIndex = (galleryIndex + 1) % currentGallery.length;
+    updateLightboxImage();
+  });
+</script>

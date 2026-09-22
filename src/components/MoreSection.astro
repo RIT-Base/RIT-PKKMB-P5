@@ -1,0 +1,95 @@
+---
+import linksData from '../data/links.json';
+---
+
+<section id="more" class="relative w-full pb-12 select-none overflow-hidden">
+  <!-- Section Title -->
+  <div class="px-4 mb-2">
+    <img
+      src="/assets/svg/more_title.svg"
+      alt="More Ecosystem"
+      class="w-[286px] h-[125px] object-contain"
+      loading="lazy"
+      decoding="async"
+    />
+  </div>
+
+  <!-- Ecosystem Container Box -->
+  <div class="relative w-[406px] h-[403px] mx-auto z-20">
+    <!-- Main Background Shape from SVG -->
+    <img
+      src="/assets/svg/more_bg.svg"
+      alt="Ecosystem Background"
+      class="absolute inset-0 w-full h-full object-contain pointer-events-none"
+      loading="lazy"
+      decoding="async"
+    />
+
+    <!-- Background Accents more_bg1 and more_bg2 from SVG -->
+    <div class="absolute top-[80px] right-[10px] w-[152px] h-[221px] pointer-events-none z-10 opacity-70">
+      <img src="/assets/svg/more_bg1.svg" alt="Accent 1" class="w-full h-full object-contain" loading="lazy" decoding="async" />
+    </div>
+
+    <div class="absolute bottom-[50px] left-[20px] w-[179px] h-[37px] pointer-events-none z-10 opacity-70">
+      <img src="/assets/svg/more_bg2.svg" alt="Accent 2" class="w-full h-full object-contain" loading="lazy" decoding="async" />
+    </div>
+
+    <!-- 3 External Links Buttons -->
+    <!-- 1. more-website (Website Resmi RIT) -->
+    <div class="absolute top-[40px] left-[85px] z-30">
+      <a
+        href={linksData.website}
+        target="_blank"
+        rel="noopener noreferrer"
+        class="inline-block transition-transform hover:scale-105 active:scale-95"
+        aria-label="Official Website"
+      >
+        <img
+          src="/assets/svg/more_website.svg"
+          alt="RIT Website"
+          class="w-[224px] h-[100px] object-contain drop-shadow-md"
+          loading="lazy"
+          decoding="async"
+        />
+      </a>
+    </div>
+
+    <!-- 2. more-expo (RIT Expo) -->
+    <div class="absolute top-[160px] left-[25px] z-30">
+      <a
+        href={linksData.expo}
+        target="_blank"
+        rel="noopener noreferrer"
+        class="inline-block transition-transform hover:scale-105 active:scale-95"
+        aria-label="RIT Expo"
+      >
+        <img
+          src="/assets/svg/more_expo.svg"
+          alt="RIT Expo"
+          class="w-[157px] h-[100px] object-contain drop-shadow-md"
+          loading="lazy"
+          decoding="async"
+        />
+      </a>
+    </div>
+
+    <!-- 3. more-github (GitHub Organization) -->
+    <div class="absolute top-[230px] right-[25px] z-30">
+      <a
+        href={linksData.github}
+        target="_blank"
+        rel="noopener noreferrer"
+        class="inline-block transition-transform hover:scale-105 active:scale-95"
+        aria-label="RIT GitHub"
+      >
+        <img
+          src="/assets/svg/more_github.svg"
+          alt="RIT GitHub"
+          class="w-[162px] h-[100px] object-contain drop-shadow-md"
+          loading="lazy"
+          decoding="async"
+        />
+      </a>
+    </div>
+  </div>
+</section>

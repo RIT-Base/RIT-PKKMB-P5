@@ -1,0 +1,42 @@
+[
+  {
+    "id": "kolase-photobooth",
+    "title_svg": "/assets/svg/showcase_card_title.svg",
+    "desc": "Aplikasi photobooth modern yang dibangun dengan sistem kontrol kamera terintegrasi, dan pengalaman photo booth yang lengkap dari pengguna sampai pengelolaannya. Karya mandiri rekan-rekan RIT yang membuktikan skill yang dipelajari siap memenuhi kebutuhan komersial.",
+    "thumbnail_frame": "/assets/svg/thumbnail.svg",
+    "thumbnail_overlay": "/assets/svg/showcase_img.svg",
+    "url": "https://kolase.fkazu.com",
+    "gallery": [
+      "/assets/svg/showcase_img.svg",
+      "/assets/images/feature/slide1.jpg",
+      "/assets/images/feature/slide2.jpg",
+      "/assets/images/feature/slide3.jpg"
+    ]
+  },
+  {
+    "id": "rit-management",
+    "title_svg": "/assets/svg/showcase_card_title.svg",
+    "desc": "Platform internal organisasi untuk manajemen presensi, arsip kegiatan, dan kolaborasi divisi. Dibangun dengan pendekatan Jamstack modern yang tangguh, cepat, dan terdesentralisasi.",
+    "thumbnail_frame": "/assets/svg/thumbnail.svg",
+    "thumbnail_overlay": "/assets/images/metaverse/thumbnail_pic1.png",
+    "url": "https://rit-base.org",
+    "gallery": [
+      "/assets/images/metaverse/thumbnail_pic1.png",
+      "/assets/images/feature/slide4.jpg",
+      "/assets/images/feature/slide5.jpg"
+    ]
+  },
+  {
+    "id": "smart-room-iot",
+    "title_svg": "/assets/svg/showcase_card_title.svg",
+    "desc": "Sistem otomasi ruangan kampus berbasis micro-controller ESP32 dan protokol MQTT. Mengatur pencahayaan, suhu, dan akses pintu secara otomatis dari antarmuka web mobile.",
+    "thumbnail_frame": "/assets/svg/thumbnail.svg",
+    "thumbnail_overlay": "/assets/images/metaverse/thumbnail_pic2.png",
+    "url": "",
+    "gallery": [
+      "/assets/images/metaverse/thumbnail_pic2.png",
+      "/assets/images/feature/slide2.jpg",
+      "/assets/images/feature/slide4.jpg"
+    ]
+  }
+]

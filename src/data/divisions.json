@@ -1,0 +1,82 @@
+[
+  {
+    "id": "webdev",
+    "name_svg": "/assets/svg/webdev-name.svg",
+    "tag_svg": "/assets/svg/webdev-tag.svg",
+    "nav_pill": "/assets/svg/webdev-nav.svg",
+    "nav_pill_active": "/assets/svg/webdev-nav-active.svg",
+    "image_red": "/assets/svg/webdev-red.svg",
+    "image_blue": "/assets/svg/webdev-blue.svg",
+    "desc": "Fokus membangun solusi digital nyata yang bisa diakses siapa saja di internet. Di sini kita belajar merancang antarmuka web interaktif, mengelola database, hingga membangun sistem aplikasi dinamis menggunakan teknologi web modern. Mulai dari nol hingga siap publish karya pertamamu bersama rekan satu tim."
+  },
+  {
+    "id": "mobdev",
+    "name_svg": "/assets/svg/mobdev-name.svg",
+    "tag_svg": "/assets/svg/mobdev-tag.svg",
+    "nav_pill": "/assets/svg/mobdev-nav.svg",
+    "nav_pill_active": "/assets/svg/mobdev-nav-active.svg",
+    "image_red": "/assets/svg/mobdev-red.svg",
+    "image_blue": "/assets/svg/mobdev-blue.svg",
+    "desc": "Membawa ide kreatif langsung ke genggaman pengguna Android dan iOS. Divisi ini berfokus pada perancangan aplikasi mobile yang responsif, mulus, dan fungsional untuk menjawab kebutuhan sehari-hari. Pelajari logika aplikasi, integrasi data, hingga tata letak antarmuka yang nyaman digunakan."
+  },
+  {
+    "id": "iot",
+    "name_svg": "/assets/svg/iot-name.svg",
+    "tag_svg": "/assets/svg/iot-tag.svg",
+    "nav_pill": "/assets/svg/iot-nav.svg",
+    "nav_pill_active": "/assets/svg/iot-nav-active.svg",
+    "image_red": "/assets/svg/iot-red.svg",
+    "image_blue": "/assets/svg/iot-blue.svg",
+    "desc": "Menghubungkan baris kode dengan perangkat fisik di dunia nyata. Di divisi IoT, kita bereksperimen memadukan mikrokontroler seperti Arduino dan ESP32 dengan aneka sensor pintar untuk menciptakan otomasi lingkungan, smart home, hingga alat pemantau jarak jauh yang solutif."
+  },
+  {
+    "id": "cysec",
+    "name_svg": "/assets/svg/cysec-name.svg",
+    "tag_svg": "/assets/svg/cysec-tag.svg",
+    "nav_pill": "/assets/svg/cysec-nav.svg",
+    "nav_pill_active": "/assets/svg/cysec-nav-active.svg",
+    "image_red": "/assets/svg/cysec-red.svg",
+    "image_blue": "/assets/svg/cysec-blue.svg",
+    "desc": "Mengeksplorasi dunia pertahanan digital dan investigasi sistem. Kita mempelajari cara kerja keamanan jaringan, menganalisis potensi celah kerentanan, hingga mengasah nalar proteksi lewat simulasi kompetisi Capture The Flag (CTF). Tempat tepat bagi yang ingin mendalami etika keamanan siber."
+  },
+  {
+    "id": "gamedev",
+    "name_svg": "/assets/svg/gamedev-name.svg",
+    "tag_svg": "/assets/svg/gamedev-tag.svg",
+    "nav_pill": "/assets/svg/gamedev-nav.svg",
+    "nav_pill_active": "/assets/svg/gamedev-nav-active.svg",
+    "image_red": "/assets/svg/gamedev-red.svg",
+    "image_blue": "/assets/svg/gamedev-blue.svg",
+    "desc": "Ruang berkumpul para antusias game untuk menuangkan imajinasi menjadi karya interaktif. Dari merancang logika gameplay, aset audio-visual, hingga eksplorasi engine game seperti Unity. Lengkap dengan sesi diskusi tren industri game dan mabar seru bareng komunitas yang suportif."
+  },
+  {
+    "id": "medcen",
+    "name_svg": "/assets/svg/medcen-name.svg",
+    "tag_svg": "/assets/svg/medcen-tag.svg",
+    "nav_pill": "/assets/svg/medcen-nav.svg",
+    "nav_pill_active": "/assets/svg/medcen-nav-active.svg",
+    "image_red": "/assets/svg/medcen-red.svg",
+    "image_blue": "/assets/svg/medcen-blue.svg",
+    "desc": "Pusat kreasi visual dan narasi publikasi di balik identitas RIT. Wadah eksplorasi bebas bagi kamu yang tertarik pada desain grafis, perancangan antarmuka UI/UX, pembuatan aset animasi, hingga produksi video kreatif untuk medcen sosial maupun kebutuhan acara."
+  },
+  {
+    "id": "rize",
+    "name_svg": "/assets/svg/rize-name.svg",
+    "tag_svg": "/assets/svg/rize-tag.svg",
+    "nav_pill": "/assets/svg/rize-nav.svg",
+    "nav_pill_active": "/assets/svg/rize-nav-active.svg",
+    "image_red": "/assets/svg/rize-red.svg",
+    "image_blue": "/assets/svg/rize-blue.svg",
+    "desc": "Langkah lanjutan bagi insan RIT menuju dunia industri profesional. Diinisiasi oleh para alumni, RIZE bergerak sebagai tim developer independen yang menangani proyek perangkat lunak nyata dan solusi digital skala enterprise. Bukti bahwa eksplorasimu di kampus memiliki masa depan nyata."
+  },
+  {
+    "id": "quest",
+    "name_svg": "/assets/svg/quest-name.svg",
+    "tag_svg": "/assets/svg/quest-tag.svg",
+    "nav_pill": "/assets/svg/quest-nav.svg",
+    "nav_pill_active": "/assets/svg/quest-nav-active.svg",
+    "image_red": "/assets/svg/quest-red.svg",
+    "image_blue": "/assets/svg/quest-blue.svg",
+    "desc": "Minatmu belum tercantum di daftar atas? Tenang, eksplorasimu tidak dibatasi oleh divisi yang ada. Jika kamu ingin mendalami Data Science, AI, atau topik teknologi lainnya, ajukan idemu! RIT selalu membuka ruang kolaborasi baru dan siap mendukung perjalanan belajarmu."
+  }
+]

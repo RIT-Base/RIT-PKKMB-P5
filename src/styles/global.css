@@ -1,0 +1,97 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@font-face {
+  font-family: 'P5Hatty';
+  src: url('/assets/fonts/p5hatty.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+:root {
+  --color-p5-red: #E60012;
+  --color-p5-black: #0A0A0D;
+  --color-p5-dark: #141416;
+  --color-p5-white: #FFFFFF;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+  background-color: #050507;
+  color: #FFFFFF;
+  overflow-x: hidden;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  font-family: 'PT Sans', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  overflow-x: hidden;
+  background-color: #050507;
+  -webkit-font-smoothing: antialiased;
+}
+
+::selection {
+  background-color: #E60012;
+  color: #FFFFFF;
+}
+
+/* 3D Preloader Animation */
+@keyframes p5-spin-3d {
+  0% {
+    transform: perspective(600px) rotateY(0deg);
+  }
+  100% {
+    transform: perspective(600px) rotateY(360deg);
+  }
+}
+
+.animate-spin-3d {
+  animation: p5-spin-3d 2s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+}
+
+/* FAQ Stepper Blinking Arrow */
+@keyframes p5-blink {
+  0%, 100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  50% {
+    opacity: 0.2;
+    transform: translateY(3px);
+  }
+}
+
+.animate-p5-blink {
+  animation: p5-blink 0.8s ease-in-out infinite;
+}
+
+/* Hardware Accelerated Drawer */
+.drawer-transition {
+  transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+  will-change: transform;
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: #0A0A0D;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #E60012;
+  border-radius: 3px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #FF1F2D;
+}

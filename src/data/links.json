@@ -1,0 +1,13 @@
+{
+  "community_join": "https://chat.whatsapp.com/example",
+  "contact_us": "https://wa.me/6281234567890",
+  "website": "https://rit-base.org",
+  "expo": "https://expo.rit-base.org",
+  "github": "https://github.com/RIT-Base",
+  "socials": {
+    "instagram": "https://instagram.com/republic_it",
+    "youtube": "https://youtube.com/@republic_it",
+    "discord": "https://discord.gg/rit",
+    "github": "https://github.com/RIT-Base"
+  }
+}

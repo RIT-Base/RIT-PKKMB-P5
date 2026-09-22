@@ -1,0 +1,212 @@
+---
+import linksData from '../data/links.json';
+---
+
+<!-- Backdrop overlay -->
+<div
+  id="drawer-backdrop"
+  class="fixed inset-0 z-40 bg-black/60 backdrop-blur-sm opacity-0 pointer-events-none transition-opacity duration-300 select-none"
+></div>
+
+<!-- Drawer container -->
+<nav
+  id="drawer-nav"
+  class="fixed top-0 inset-x-0 mx-auto z-50 w-full max-w-[440px] h-screen max-h-screen overflow-hidden bg-[#0A0A0D]/90 backdrop-blur-md drawer-transition pointer-events-none select-none -translate-y-full flex justify-center"
+  aria-label="Navigation Drawer"
+>
+  <!-- Game Canvas Inner Frame for Drawer (proportional scaling on mobile < 440px) -->
+  <div id="drawer-canvas-inner" class="relative w-[440px] h-full flex-shrink-0">
+    <!-- Background Image Frame -->
+    <img
+      src="/assets/svg/menu_nav_cont.svg"
+      alt="Menu Frame"
+      class="absolute inset-0 w-full h-full object-cover pointer-events-none z-10"
+    />
+
+    <!-- Close Button -->
+    <div class="absolute top-[50px] right-[28px] z-30">
+      <button
+        id="drawer-close-btn"
+        type="button"
+        class="w-[52px] h-[52px] transition-transform hover:scale-110 active:scale-95 focus:outline-none"
+        aria-label="Close Menu"
+      >
+        <img src="/assets/svg/pop_close.svg" alt="Close Menu" class="w-full h-full object-contain" />
+      </button>
+    </div>
+
+    <!-- ============================================================
+         NAV LINKS — each item is independently positioned.
+         To move a link, just edit its own top-[...] and right-[...].
+         ============================================================ -->
+    <div class="absolute inset-0 z-20 pointer-events-none">
+
+      <!-- 1. Home -->
+      <a
+        href="#hero"
+        class="drawer-link absolute top-[65px] right-[230px] pointer-events-auto block transition-transform hover:scale-105 active:scale-95"
+        aria-label="Home"
+      >
+        <img src="/assets/svg/nav_home.svg" alt="Home" class="w-[98px] h-[60px] object-contain" />
+      </a>
+
+      <!-- 2. About Us -->
+      <a
+        href="#about"
+        class="drawer-link absolute top-[150px] right-[70px] pointer-events-auto block transition-transform hover:scale-105 active:scale-95"
+        aria-label="About Us"
+      >
+        <img src="/assets/svg/nav_about_us.svg" alt="About Us" class="w-[228px] h-[60px] object-contain" />
+      </a>
+
+      <!-- 3. Divisions -->
+      <a
+        href="#divisions"
+        class="drawer-link absolute top-[250px] right-[30px] pointer-events-auto block transition-transform hover:scale-105 active:scale-95"
+        aria-label="Divisions"
+      >
+        <img src="/assets/svg/nav_divisions.svg" alt="Divisions" class="w-[245px] h-[60px] object-contain" />
+      </a>
+
+      <!-- 4. Showcase -->
+      <a
+        href="#showcase"
+        class="drawer-link absolute top-[350px] -right-[5px] pointer-events-auto block transition-transform hover:scale-105 active:scale-95"
+        aria-label="Showcase"
+      >
+        <img src="/assets/svg/nav_showcase.svg" alt="Showcase" class="w-[252px] h-[60px] object-contain" />
+      </a>
+
+      <!-- 5. FAQ -->
+      <a
+        href="#faq"
+        class="drawer-link absolute top-[450px] right-[100px] pointer-events-auto block transition-transform hover:scale-105 active:scale-95"
+        aria-label="FAQ"
+      >
+        <img src="/assets/svg/nav_faq.svg" alt="FAQ" class="w-[104px] h-[60px] object-contain" />
+      </a>
+
+      <!-- 6. More -->
+      <a
+        href="#more"
+        class="drawer-link absolute top-[550px] right-[50px] pointer-events-auto block transition-transform hover:scale-105 active:scale-95"
+        aria-label="More"
+      >
+        <img src="/assets/svg/nav_more.svg" alt="More" class="w-[132px] h-[60px] object-contain" />
+      </a>
+    </div>
+
+    <!-- ============================================================
+         BOTTOM FRAME — each social icon is independently positioned.
+         To move one, edit its own top-[...] and left-[...] (or right-).
+         ============================================================ -->
+    <div class="absolute bottom-[40px] left-0 w-full h-[140px] z-20">
+      <img
+        src="/assets/svg/menu_pay_box.svg"
+        alt="Bottom Frame"
+        class="absolute inset-0 w-full h-full object-fill pointer-events-none"
+      />
+
+      <!-- Instagram -->
+      <a
+        href={linksData.socials.instagram}
+        target="_blank"
+        rel="noopener noreferrer"
+        class="absolute top-[35px] left-[30px] w-[56px] h-[56px] transition-transform hover:scale-110 active:scale-95"
+        aria-label="Instagram"
+      >
+        <img src="/assets/svg/followus_ig.svg" alt="Instagram" class="w-full h-full object-contain" />
+      </a>
+
+      <!-- YouTube -->
+      <a
+        href={linksData.socials.youtube}
+        target="_blank"
+        rel="noopener noreferrer"
+        class="absolute top-[40px] left-[120px] w-[56px] h-[56px] transition-transform hover:scale-110 active:scale-95"
+        aria-label="YouTube"
+      >
+        <img src="/assets/svg/followus_yt.svg" alt="YouTube" class="w-full h-full object-contain" />
+      </a>
+
+      <!-- Discord -->
+      <a
+        href={linksData.socials.discord}
+        target="_blank"
+        rel="noopener noreferrer"
+        class="absolute top-[48px] left-[215px] w-[56px] h-[56px] transition-transform hover:scale-110 active:scale-95"
+        aria-label="Discord"
+      >
+        <img src="/assets/svg/followus_ds.svg" alt="Discord" class="w-full h-full object-contain" />
+      </a>
+
+      <!-- GitHub -->
+      <a
+        href={linksData.socials.github}
+        target="_blank"
+        rel="noopener noreferrer"
+        class="absolute top-[55px] left-[310px] w-[56px] h-[56px] transition-transform hover:scale-110 active:scale-95"
+        aria-label="GitHub"
+      >
+        <img src="/assets/svg/followus_git.svg" alt="GitHub" class="w-full h-full object-contain" />
+      </a>
+    </div>
+  </div>
+</nav>
+
+<script>
+  const openBtn = document.getElementById('drawer-open-btn');
+  const closeBtn = document.getElementById('drawer-close-btn');
+  const drawer = document.getElementById('drawer-nav');
+  const backdrop = document.getElementById('drawer-backdrop');
+  const links = document.querySelectorAll('.drawer-link');
+  const drawerInner = document.getElementById('drawer-canvas-inner');
+
+  function updateDrawerScale() {
+    const w = window.innerWidth;
+    if (!drawerInner) return;
+
+    if (w < 440) {
+      const scale = w / 440;
+      drawerInner.style.transformOrigin = 'top center';
+      drawerInner.style.transform = `scale(${scale})`;
+      drawerInner.style.height = `${window.innerHeight / scale}px`;
+    } else {
+      drawerInner.style.transformOrigin = 'top center';
+      drawerInner.style.transform = 'none';
+      drawerInner.style.height = '100%';
+    }
+  }
+
+  function openDrawer() {
+    updateDrawerScale();
+    if (drawer && backdrop) {
+      backdrop.classList.remove('opacity-0', 'pointer-events-none');
+      backdrop.classList.add('opacity-100', 'pointer-events-auto');
+
+      drawer.classList.remove('-translate-y-full', 'pointer-events-none');
+      drawer.classList.add('translate-y-0', 'pointer-events-auto');
+    }
+  }
+
+  function closeDrawer() {
+    if (drawer && backdrop) {
+      drawer.classList.remove('translate-y-0', 'pointer-events-auto');
+      backdrop.classList.remove('opacity-100', 'pointer-events-auto');
+      drawer.classList.add('-translate-y-full', 'pointer-events-none');
+      backdrop.classList.add('opacity-0', 'pointer-events-none');
+    }
+  }
+
+  openBtn?.addEventListener('click', openDrawer);
+  closeBtn?.addEventListener('click', closeDrawer);
+  backdrop?.addEventListener('click', closeDrawer);
+
+  links.forEach((l) => {
+    l.addEventListener('click', closeDrawer);
+  });
+
+  window.addEventListener('resize', updateDrawerScale);
+  window.addEventListener('DOMContentLoaded', updateDrawerScale);
+  window.addEventListener('load', updateDrawerScale);
+</script>

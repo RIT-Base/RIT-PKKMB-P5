@@ -1,0 +1,41 @@
+{
+  "idle_text": "Penasaran tentang hal seputar RIT? Tanyain ke Neko sini!",
+  "questions": [
+    {
+      "id": 1,
+      "title": "Aku belum pernah ngoding",
+      "dialogue": [
+        "Meow! Boleh banget! RIT itu tempat eksplorasi bareng dari nol, bukan pamer siapa yang paling jago.",
+        "Mentor dan rekan-rekan bakal nemenin kamu belajar langkah demi langkah.",
+        "Modal utamamu cuma satu: rasa penasaran dan semangat mau mencoba!"
+      ]
+    },
+    {
+      "id": 2,
+      "title": "Aku anak Ilkom, boleh join?",
+      "dialogue": [
+        "Nyambung parah! Dunia IT bukan cuma soal ngoding baris program doang lho!",
+        "Kita butuh desainer grafis, UI/UX, media kreatif, sampai perancang narasi di Media Center.",
+        "Semua mahasiswa Fkominfo punya peran besar dan seru di RIT!"
+      ]
+    },
+    {
+      "id": 3,
+      "title": "Harus punya laptop/PC spek tinggi gak?",
+      "dialogue": [
+        "Nggak perlu laptop dewa atau spek gaming kok!",
+        "Buat belajar web dasar, logika aplikasi, atau desain awal, laptop standar kuliahmu sudah lebih dari cukup.",
+        "Yang penting jalan dan bisa dipakai praktek bareng!"
+      ]
+    },
+    {
+      "id": 4,
+      "title": "Masuk RIT susah gak?",
+      "dialogue": [
+        "Santai banget, no ospek kaku atau tes eliminasi menegangkan!",
+        "Kita fokus melihat komitmen dan semangat belajarmu bareng komunitas.",
+        "Kalau kamu siap aktif, pintu markas RIT selalu terbuka lebar!"
+      ]
+    }
+  ]
+}
