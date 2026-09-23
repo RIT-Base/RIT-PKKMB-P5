@@ -100,7 +100,6 @@ import showcaseData from '../data/showcase.json';
           src={showcaseData[0].thumbnail_overlay}
           alt="Thumbnail Preview"
           class="w-full h-full object-cover"
-          loading="lazy"
           decoding="async"
         />
       </div>
@@ -157,7 +156,6 @@ import showcaseData from '../data/showcase.json';
           src={showcaseData[0].gallery[0]}
           alt="Preview"
           class="w-full max-h-[68vh] object-contain rounded-lg border-2 border-[#E60012] shadow-2xl bg-[#0A0A0D] transition-all duration-300"
-          loading="lazy"
           decoding="async"
         />
         <!-- Gallery Counter -->
@@ -284,4 +282,60 @@ import showcaseData from '../data/showcase.json';
     galleryIndex = (galleryIndex + 1) % currentGallery.length;
     updateLightboxImage();
   });
+
+  // Async Background Asset Pre-fetcher for Showcase (Priority 3)
+  function initShowcasePreloader() {
+    const queue = [];
+    const seenUrls = new Set();
+
+    showcaseData.forEach((item) => {
+      if (item.thumbnail_overlay) queue.push(item.thumbnail_overlay);
+      if (item.thumbnail_frame) queue.push(item.thumbnail_frame);
+      if (item.title_svg) queue.push(item.title_svg);
+      if (Array.isArray(item.gallery)) {
+        item.gallery.forEach((gUrl) => {
+          if (gUrl) queue.push(gUrl);
+        });
+      }
+    });
+
+    const uniqueQueue = queue.filter((url) => {
+      if (!url || seenUrls.has(url)) return false;
+      seenUrls.add(url);
+      return true;
+    });
+
+    const scheduleWork = window.requestIdleCallback || ((cb) => setTimeout(cb, 80));
+
+    function processQueue() {
+      if (uniqueQueue.length === 0) return;
+      const batch = uniqueQueue.splice(0, 3);
+      batch.forEach((url) => {
+        const img = new Image();
+        img.decoding = 'async';
+        img.src = url;
+      });
+      if (uniqueQueue.length > 0) {
+        scheduleWork(processQueue);
+      }
+    }
+
+    scheduleWork(processQueue);
+  }
+
+  let showcasePreloaderStarted = false;
+  const startShowcasePreloader = () => {
+    if (showcasePreloaderStarted) return;
+    showcasePreloaderStarted = true;
+    initShowcasePreloader();
+  };
+
+  window.addEventListener('p5:preloader-dismissed', startShowcasePreloader, { once: true });
+  if (window.__p5_preloader_dismissed) {
+    startShowcasePreloader();
+  } else {
+    window.addEventListener('load', () => {
+      setTimeout(startShowcasePreloader, 1500);
+    }, { once: true });
+  }
 </script>

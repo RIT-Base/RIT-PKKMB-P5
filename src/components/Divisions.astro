@@ -90,7 +90,6 @@ import divisionsData from '../data/divisions.json';
         src={divisionsData[0].image_red}
         alt="Division Visual"
         class="w-full h-full object-contain drop-shadow-[0_10px_25px_rgba(0,0,0,0.9)]"
-        loading="lazy"
         decoding="async"
       />
     </div>
@@ -340,4 +339,71 @@ import divisionsData from '../data/divisions.json';
       updateDivision(prevIdx, -1);
     }
   }, { passive: true });
+
+  // Async Background Asset Pre-fetcher Queue for Divisions
+  function initDivisionsPreloader() {
+    // Priority 1: Neighboring divisions (mobdev [1], quest [7]) & alternate variant of division 0
+    const p1 = [];
+    if (divisionsData.length > 1) {
+      p1.push(divisionsData[1].image_red, divisionsData[1].image_blue);
+    }
+    if (divisionsData.length > 7) {
+      p1.push(divisionsData[7].image_red, divisionsData[7].image_blue);
+    }
+    if (divisionsData.length > 0) {
+      p1.push(divisionsData[0].image_blue);
+    }
+
+    // Priority 2: Remaining division character art (2-6) and metadata SVGs (name, tag, nav pills)
+    const p2 = [];
+    divisionsData.forEach((div, idx) => {
+      if (idx !== 0 && idx !== 1 && idx !== 7) {
+        p2.push(div.image_red, div.image_blue);
+      }
+      p2.push(div.name_svg, div.tag_svg, div.nav_pill, div.nav_pill_active);
+    });
+
+    const queue = [];
+    const seenUrls = new Set();
+
+    [...p1, ...p2].forEach((url) => {
+      if (url && !seenUrls.has(url)) {
+        seenUrls.add(url);
+        queue.push(url);
+      }
+    });
+
+    const scheduleWork = window.requestIdleCallback || ((cb) => setTimeout(cb, 60));
+
+    function processQueue() {
+      if (queue.length === 0) return;
+      const batch = queue.splice(0, 3);
+      batch.forEach((url) => {
+        const img = new Image();
+        img.decoding = 'async';
+        img.src = url;
+      });
+      if (queue.length > 0) {
+        scheduleWork(processQueue);
+      }
+    }
+
+    scheduleWork(processQueue);
+  }
+
+  let divPreloaderStarted = false;
+  const startDivPreloader = () => {
+    if (divPreloaderStarted) return;
+    divPreloaderStarted = true;
+    initDivisionsPreloader();
+  };
+
+  window.addEventListener('p5:preloader-dismissed', startDivPreloader, { once: true });
+  if (window.__p5_preloader_dismissed) {
+    startDivPreloader();
+  } else {
+    window.addEventListener('load', () => {
+      setTimeout(startDivPreloader, 1000);
+    }, { once: true });
+  }
 </script>

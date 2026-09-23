@@ -28,6 +28,8 @@
         p.style.pointerEvents = 'none';
         setTimeout(function() {
           p.style.display = 'none';
+          window.__p5_preloader_dismissed = true;
+          window.dispatchEvent(new CustomEvent('p5:preloader-dismissed'));
         }, 200);
       }
     }
@@ -41,14 +43,26 @@
     seen = sessionStorage.getItem('p5_preloader_seen') === '1';
   } catch (e) {}
 
+  let dismissedNotified = false;
+  function notifyDismissed() {
+    if (dismissedNotified) return;
+    dismissedNotified = true;
+    (window as any).__p5_preloader_dismissed = true;
+    window.dispatchEvent(new CustomEvent('p5:preloader-dismissed'));
+  }
+
   function dismissPreloader(fast = false) {
-    if (!preloader || preloader.style.display === 'none') return;
+    if (!preloader || preloader.style.display === 'none') {
+      notifyDismissed();
+      return;
+    }
     if (fast) {
       preloader.style.transition = 'opacity 0.2s ease-out';
       preloader.style.opacity = '0';
       preloader.style.pointerEvents = 'none';
       setTimeout(() => {
         preloader.style.display = 'none';
+        notifyDismissed();
       }, 200);
     } else {
       preloader.style.transition = 'opacity 0.7s ease-out';
@@ -56,6 +70,7 @@
       preloader.style.pointerEvents = 'none';
       setTimeout(() => {
         preloader.style.display = 'none';
+        notifyDismissed();
       }, 700);
     }
   }

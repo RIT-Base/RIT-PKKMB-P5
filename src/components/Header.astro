@@ -113,50 +113,66 @@ const { communityJoinUrl, contactUsUrl } = Astro.props;
   </div>
 
   <!-- Hidden Audio Element for BGM -->
-  <audio id="bgm-audio" loop preload="auto" autoplay>
+  <audio id="bgm-audio" loop preload="auto">
     <source src="/assets/audio/Royal%20Days_128k.mp3" type="audio/mpeg" />
   </audio>
 </header>
 
 <script>
-  // BGM Toggle & Autoplay Handler
+  // BGM Toggle & First-Touch Autoplay Handler
   const audio = document.getElementById('bgm-audio') as HTMLAudioElement;
   const toggleBtn = document.getElementById('bgm-toggle-btn');
   const icon = document.getElementById('bgm-icon') as HTMLImageElement;
 
   if (toggleBtn && audio && icon) {
-    let isPlaying = true;
+    let isPlaying = false;
     let userPaused = false;
 
-    const playAudio = () => {
-      if (userPaused) return;
-      audio.play().then(() => {
-        icon.src = '/assets/svg/menu_music_on.svg';
-        isPlaying = true;
-      }).catch((err) => {
-        console.warn('Autoplay prevented by browser, waiting for gesture:', err);
+    const gestureEvents = ['click', 'touchstart', 'pointerdown', 'keydown', 'wheel', 'scroll'];
+
+    const cleanupGestureListeners = () => {
+      gestureEvents.forEach((evt) => {
+        window.removeEventListener(evt, onFirstGesture);
       });
     };
 
-    // Attempt autoplay immediately
-    playAudio();
+    const playAudio = () => {
+      if (userPaused || isPlaying) return;
+      audio.play().then(() => {
+        icon.src = '/assets/svg/menu_music_on.svg';
+        isPlaying = true;
+        cleanupGestureListeners();
+      }).catch(() => {
+        // Browser memblokir unmuted autoplay -> status TETAP isPlaying = false
+        isPlaying = false;
+        // Biarkan gesture listeners tetap aktif!
+      });
+    };
 
-    // Fallback gesture listeners for unmuting/playing on first interaction
     const onFirstGesture = () => {
-      if (!isPlaying && !userPaused) {
+      if (!userPaused && !isPlaying) {
         playAudio();
-      }
-      if (isPlaying || userPaused) {
-        ['click', 'touchstart', 'keydown'].forEach((evt) => {
-          window.removeEventListener(evt, onFirstGesture);
-        });
       }
     };
 
-    ['click', 'touchstart', 'keydown'].forEach((evt) => {
+    // Pasang listener interaksi pada window untuk first-touch autoplay
+    gestureEvents.forEach((evt) => {
       window.addEventListener(evt, onFirstGesture, { passive: true });
     });
 
+    // Coba putar audio saat preloader selesai dismiss
+    window.addEventListener('p5:preloader-dismissed', () => {
+      playAudio();
+    });
+
+    if ((window as any).__p5_preloader_dismissed) {
+      playAudio();
+    }
+
+    // Coba putar audio sedini mungkin
+    playAudio();
+
+    // Toggle button handler
     toggleBtn.addEventListener('click', (e) => {
       e.stopPropagation();
       if (isPlaying) {
@@ -166,14 +182,7 @@ const { communityJoinUrl, contactUsUrl } = Astro.props;
         icon.src = '/assets/images/nav/menu_music_off.png';
       } else {
         userPaused = false;
-        audio.play().then(() => {
-          icon.src = '/assets/svg/menu_music_on.svg';
-          isPlaying = true;
-        }).catch((err) => {
-          console.warn('Audio play prevented:', err);
-          icon.src = '/assets/images/nav/menu_music_off.png';
-          isPlaying = false;
-        });
+        playAudio();
       }
     });
 

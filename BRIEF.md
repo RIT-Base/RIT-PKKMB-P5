@@ -1,18 +1,17 @@
-# BRIEF REVISI 5: STICKY NAV, AUTOPLAY BGM, DRAWER GAME CANVAS, & OPTIMASI PRELOADER
-Dari: Arona (Lead Arsitek & QA) | Untuk: Plana (Full-Stack Executor) | Tanggal: 2026-09-22
+# BRIEF REVISI 6: FIRST-TOUCH AUTOPLAY BGM & ASYNC ASSET BACKGROUND PRELOADER
+Dari: Arona (Lead Arsitek & QA) | Untuk: Plana (Full-Stack Executor) | Tanggal: 2026-09-23
 
 ## 1. Goal
-Menyelesaikan 4 penyesuaian akhir sebelum deploy sesuai instruksi Sensei Lysander:
-1. **Autoplay & Active State BGM:** BGM audio langsung aktif dalam state playing secara default (`isPlaying = true`, icon `menu_music_on.svg`), dengan gesture-safe fallback yang langsung membunyikan musik saat ada interaksi pertama di halaman.
-2. **Sticky Right Controls:** Tombol kontrol kanan (Music toggle & Burger menu) dibuat sticky/fixed di pojok kanan atas kontainer sehingga tetap dapat diakses kapan saja saat pengguna melakukan scroll.
-3. **Game Canvas Scaling untuk Drawer:** Terapkan skala proporsional dinamis yang sama pada menu navigasi drawer (`Drawer.astro`) di layar mobile (< 440px) agar tata letaknya tetap rapi 1:1.
-4. **Optimasi Preloader & Smart Cache:**
-   - Gunakan cache session (`sessionStorage`): jika user sudah pernah memuat website dalam sesi tersebut (atau melakukan refresh), preloader langsung dismiss secara instan (fade cepat 0.2s) tanpa harus menunggu lama.
-   - Preloader memprioritaskan aset pembuka (audio metadata, font `P5Hatty`, elemen hero header).
-   - Elemen di bawah layar (below-the-fold) menerapkan lazyloading (`loading="lazy"` & `decoding="async"`).
+Memperbaiki 2 kendala UX pada website promosi RIT PKKMB 2026:
+1. **Autoplay BGM pada Sentuhan Pertama (First-Touch Autoplay):** Memperbaiki deadlock state audio di mana BGM tertahan dan listener terhapus sebelum audio berbunyi. BGM otomatis langsung memutar audio pada sentuhan/interaksi pertama pengguna di halaman utama setelah preloader, serta sinkronisasi state toggle BGM yang presisi.
+2. **Background Async Asset Preloader:** Mengeliminasi lag/blank saat klik `Prev`, `Next`, atau `Role Change` pada Divisi & Showcase dengan memuat seluruh aset SVG varian (termasuk SVG 1.6MB) dan gambar galeri secara asinkron di balik layar (background prefetch) segera setelah layar terbuka.
 
-⚠️ **ATURAN MUTLAK SENSEI LYSANDER (STRICT CONSTRAINT):**
-DILARANG merubah koordinat absolut, ukuran, atau penataan dalam komponen yang sudah dirapikan Sensei!
+⚠️ **STRICT CONSTRAINT DARI SENSEI LYSANDER:**
+- DILARANG merubah koordinat absolut, ukuran, token desain, atau tata letak visual Figma yang sudah presisi!
+- DILARANG auto-commit git (Sensei melakukan commit manual).
+- Tanpa prompt "Tap to Enter" di preloader — preloader tetap auto-dismiss secara natural, lalu BGM aktif pada sentuhan pertama di halaman utama.
+
+---
 
 ## 2. Required Skills (Load via skill_view)
 - [ ] `frontend-taste-and-design`
@@ -20,69 +19,97 @@ DILARANG merubah koordinat absolut, ukuran, atau penataan dalam komponen yang su
 - [ ] `modern-web-motion`
 - [ ] `playwright-iterative-qa`
 
+---
+
 ## 3. Konteks & Scope
-- Path Repositori: `/mnt/d/github/rit-pkkmb/`
+- Path Repositori: `/mnt/d/github/RIT-PKKMB-P5/`
 - File Target:
-  - `src/components/Header.astro` (Autoplay state, sticky controls)
-  - `src/components/Drawer.astro` (Game canvas scaling pada drawer konten)
-  - `src/components/Preloader.astro` (SessionStorage cache, prioritas preload)
-  - `src/layouts/Layout.astro` (Koneksi sticky controls & drawer scaler jika diperlukan)
-- DILARANG auto-commit git (Sensei Lysander commit manual).
+  - `src/components/Header.astro` (Logika BGM state machine & first-touch interaction fallback)
+  - `src/components/Preloader.astro` (Dispatch event `p5:preloader-dismissed` saat preloader selesai dismiss)
+  - `src/components/Divisions.astro` (Hapus `loading="lazy"` pada `#div-img`, pasang background asset pre-fetcher async)
+  - `src/components/Showcase.astro` (Hapus `loading="lazy"` pada thumbnail dinamis & modal lightbox main image)
+- QC Output Sandbox: `/mnt/d/aigen/Arona/qc/rit-pkkmb/`
 
 ---
 
 ## 4. Rincian Spesifikasi Teknis
 
-### A. Autoplay & Active State BGM (`src/components/Header.astro`)
-1. **Default State:**
-   - Status awal `isPlaying = true`.
-   - Ikon tombol BGM awal adalah `src="/assets/svg/menu_music_on.svg"`.
-2. **Autoplay & Browser Gesture Policy Fallback:**
-   - Saat halaman termuat, langsung panggil `audio.play()`.
-   - Karena browser modern memblokir audio unmuted otomatis tanpa gesture, pasang safety listener pada window/document (`click`, `touchstart`, `keydown`):
-     Jika audio tertahan oleh browser, pada tap/klik pertama di manapun (termasuk saat menyentuh preloader atau scroll), `audio.play()` langsung aktif tanpa mengharuskan pengguna mencari tombol musik.
+### A. First-Touch BGM Autoplay (`src/components/Header.astro` & `src/components/Preloader.astro`)
+1. **Event Dispatch dari Preloader:**
+   - Di `src/components/Preloader.astro`, saat fungsi `dismissPreloader()` selesai (atau saat preloader disembunyikan `p.style.display = 'none'`), tambahkan:
+     ```ts
+     window.dispatchEvent(new CustomEvent('p5:preloader-dismissed'));
+     ```
+2. **State Machine BGM & Fix Deadlock (`src/components/Header.astro`):**
+   - Status awal `let isPlaying = false;` dan `let userPaused = false;`.
+   - Ikon awal tetap `src="/assets/svg/menu_music_on.svg"` (menandakan BGM siap berputar).
+   - Fungsi `playAudio()`:
+     ```ts
+     const playAudio = () => {
+       if (userPaused || isPlaying) return;
+       audio.play().then(() => {
+         icon.src = '/assets/svg/menu_music_on.svg';
+         isPlaying = true;
+         cleanupGestureListeners();
+       }).catch((err) => {
+         // Browser memblokir unmuted autoplay -> status TETAP isPlaying = false
+         isPlaying = false;
+         // Biarkan gesture listeners tetap aktif!
+       });
+     };
+     ```
+   - **First-Touch Listeners:**
+     - Pasang listener interaksi pada `window`: `['click', 'touchstart', 'pointerdown', 'keydown', 'wheel', 'scroll']`.
+     - Fungsi `cleanupGestureListeners()` hanya menghapus listener tersebut jika `isPlaying === true` (audio benar-benar sudah berputar).
+     - Dengarkan juga event `p5:preloader-dismissed` untuk mencoba `playAudio()` jika browser mengizinkan unmuted autoplay secara langsung.
+   - **Toggle Button Sync:**
+     - Klik pada `bgm-toggle-btn`:
+       - Jika audio sedang berputar (`isPlaying === true`): pause audio, set `userPaused = true; isPlaying = false; icon.src = '/assets/images/nav/menu_music_off.png';`.
+       - Jika audio sedang paused: set `userPaused = false; playAudio();`.
 
-### B. Sticky Right Controls (`src/components/Header.astro`)
-1. **Posisi Tetap (Sticky / Fixed):**
-   - Area `<!-- Right Controls: Music Toggle & Burger Menu -->` dibuat tetap melayang di pojok kanan atas kontainer saat halaman di-scroll ke bawah:
-     - Gunakan `fixed top-5 z-40 flex items-center gap-3`.
-     - Untuk penempatan horizontal yang presisi: di mobile (< 440px) gunakan `right-4`, di desktop (>= 440px) gunakan `right-4 md:right-[calc(50%-220px+16px)]` agar selalu mengunci 16px dari tepi kanan frame 440px yang berada di tengah layar monitor!
-   - Tombol tetap memiliki efek transisi hover/active scale yang mulus.
-
-### C. Game Canvas Scaling untuk Drawer (`src/components/Drawer.astro`)
-1. **Dynamic Scaling:**
-   - Di dalam container drawer `<nav id="drawer-nav">`, bungkus konten drawer dengan kontainer `w-[440px] h-full relative` yang menerapkan skala yang sama dengan canvas utama:
-     Saat lebar layar ponsel `W < 440px`, konten diskala dengan `scale = W / 440` dan `transformOrigin: 'top center'`.
-   - Ini memastikan seluruh tombol nav link, tombol close, dan panel medsos di bawah tetap proporsional dan tidak terpotong di layar ponsel kecil (360px – 390px).
-
-### D. Optimasi Preloader & Smart Cache (`src/components/Preloader.astro`)
-1. **Smart Cache Session:**
-   - Periksa `sessionStorage.getItem('p5_preloader_seen')`:
-     - Jika bernilai `'1'` (user me-refresh atau sudah pernah membuka website): Preloader langsung dismiss secara instan (`transition: opacity 0.2s`, `opacity: 0`, lalu `display: none`).
-     - Jika kunjungan pertama: Jalankan animasi preloader 3D Persona 5, tunggu `load`, lalu simpan `sessionStorage.setItem('p5_preloader_seen', '1')` dan dismiss mulus.
-2. **Prioritas Resource:**
-   - Pasang `<link rel="preload" href="/assets/audio/Royal%20Days_128k.mp3" as="audio" />` dan `<link rel="preload" href="/assets/fonts/p5hatty.ttf" as="font" type="font/ttf" crossorigin />`.
-   - Tambahkan `loading="lazy"` dan `decoding="async"` pada gambar-gambar di section bawah (Showcase gallery, footer logos, FAQ maskot).
+### B. Background Async Asset Pre-caching (`src/components/Divisions.astro` & `src/components/Showcase.astro`)
+1. **Hapus `loading="lazy"` pada Dynamic Target:**
+   - Di `Divisions.astro`: ubah `<img id="div-img" ... loading="lazy" decoding="async" />` menjadi `<img id="div-img" ... decoding="async" />` (tanpa lazy).
+   - Di `Showcase.astro`: ubah `<img id="showcase-thumb-img" ... loading="lazy" />` dan `<img id="lightbox-main-img" ... loading="lazy" />` menjadi `decoding="async"` tanpa lazy.
+2. **Async Background Pre-fetcher Queue:**
+   - Jalankan pre-fetching seluruh gambar divisi dan galeri setelah preloader dismiss (mendengarkan event `p5:preloader-dismissed` atau pada `requestIdleCallback` / `window.onload`):
+   - Ambil seluruh daftar URL:
+     - **Divisi (Prioritas 1):** Divisi 1 (`mobdev`) `image_red` & `image_blue`, Divisi 7 (`quest`) `image_red` & `image_blue`, serta varian blue dari Divisi 0 (`webdev-blue.svg`).
+     - **Divisi (Prioritas 2):** Seluruh sisa `image_red` & `image_blue` divisi 2–6 (termasuk `gamedev-red.svg` dan `gamedev-blue.svg`), serta `name_svg`, `tag_svg`, `nav_pill`, `nav_pill_active`.
+     - **Showcase (Prioritas 3):** Semua `thumbnail_overlay` dan file `gallery` dari `showcase.json`.
+   - Mekanisme pre-cache non-blocking:
+     ```ts
+     const preloadAsset = (url: string) => {
+       if (!url) return;
+       const img = new Image();
+       img.decoding = 'async';
+       img.src = url;
+     };
+     ```
+   - Lakukan pemanggilan bertahap (batch per 2-3 aset dengan interval atau via `requestIdleCallback`) agar tidak membebani network thread saat halaman baru saja dibuka.
+   - Dengan begitu, saat user scrolling ke bagian Divisi dan menekan tombol Next/Prev/Role Change, seluruh gambar sudah ada di memory/HTTP cache browser dan bertransisi mulus 0ms tanpa ada tampilan kosong/blank!
 
 ---
 
 ## 5. Verifikasi Mandiri (Playwright Test Loop)
-- Lakukan `npm run build` (wajib 0 error).
-- Uji headless Playwright:
-  - Verifikasi right controls tetap terlihat di posisi atas saat scroll ke bawah (`scrollY > 1000px`).
-  - Verifikasi audio BGM berada di state play dengan icon `menu_music_on.svg`.
-  - Verifikasi drawer pada viewport 360px & 390px diskala rapi tanpa overflow.
-  - Verifikasi refresh kedua tidak memicu jeda preloader yang lama karena `sessionStorage`.
-  - Simpan bukti screenshot ke `/mnt/d/aigen/Arona/qc/rit-pkkmb/sticky_nav_scrolled.png` dan `/mnt/d/aigen/Arona/qc/rit-pkkmb/drawer_scaled_mobile.png`.
+Plana wajib menjalankan pengujian otomatis:
+1. `npm run build` di `/mnt/d/github/RIT-PKKMB-P5/` (wajib lolos 0 error).
+2. Buat / update script pengujian headless Playwright:
+   - Verifikasi bahwa setelah preloader selesai dan dilakukan 1 interaksi sentuhan (`page.mouse.click(100, 100)` atau `page.touchscreen.tap(100, 100)`), elemen `<audio id="bgm-audio">` berstatus `paused === false` dan icon BGM bernilai `menu_music_on.svg`.
+   - Verifikasi carousel Divisi: klik `Next` dan `Role Change`, pastikan `img#div-img` memiliki `src` yang valid dan tidak menghasilkan console error 404.
+   - Verifikasi tidak ada error runtime pada console.
+
+---
 
 ## 6. Format Laporan (WAJIB)
 FILE DISENTUH: <list path file>
 SKILL DIMUAT: <list skill yang sudah di-load>
 BUKTI TEST MANDIRI: <snapshot path / status console test>
 HASIL:
-- <ringkasan 4 fitur yang diselesaikan>
+- <ringkasan implementasi first-touch BGM autoplay>
+- <ringkasan implementasi background async asset preloader>
 BLOCKER / PERTANYAAN: <jika ada>
 
 ## 7. Discord Notification (WAJIB saat run di WSL)
 Setelah selesai dan terverifikasi, jalankan via terminal:
-`plana send -t "discord:1537423423956058152" "[Plana: Task Selesai] RIT PKKMB 2026: Sticky Nav, Autoplay BGM, Drawer Canvas, & Preloader Cache selesai"`
+`plana send -t "discord:1537423423956058152" "[Plana: Task Selesai] RIT PKKMB 2026: First-Touch BGM & Async Asset Preloader selesai diimplementasikan & terverifikasi"`
