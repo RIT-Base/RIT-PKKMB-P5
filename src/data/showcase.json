@@ -22,11 +22,11 @@
     "thumbnail_overlay": "/assets/images/nutrigrow.png",
     "url": "",
     "gallery": [
-      "/assets/images/(hero)load.jpg",
-      "/assets/images/add-data.jpg",
-      "/assets/images/dashboard.jpg",
-      "/assets/images/monitor.jpg",
-      "/assets/images/profile.jpg"
+      "/assets/images/(hero)load.webp",
+      "/assets/images/add-data.webp",
+      "/assets/images/dashboard-nutrigrow.webp",
+      "/assets/images/monitor.webp",
+      "/assets/images/profile.webp"
     ]
   },
   {
@@ -37,7 +37,7 @@
     "thumbnail_overlay": "/assets/images/greenhouse.png",
     "url": "",
     "gallery": [
-      "/assets/images/(hero)greenhouse.png"
+      "/assets/images/(hero)greenhouse.webp"
     ]
   },
   {
@@ -62,8 +62,8 @@
     "thumbnail_overlay": "/assets/images/expo.png",
     "url": "https://rit-base.github.io/Expo/",
     "gallery": [
-      "/assets/images/(hero)main-page.png",
-      "/assets/images/detail.png"
+      "/assets/images/(hero)main-page.webp",
+      "/assets/images/detail.webp"
     ]
   }
 ]
