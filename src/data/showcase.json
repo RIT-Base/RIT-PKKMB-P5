@@ -1,42 +1,69 @@
 [
   {
-    "id": "kolase-photobooth",
-    "title_svg": "/assets/svg/showcase_card_title.svg",
-    "desc": "Aplikasi photobooth modern yang dibangun dengan sistem kontrol kamera terintegrasi, dan pengalaman photo booth yang lengkap dari pengguna sampai pengelolaannya. Karya mandiri rekan-rekan RIT yang membuktikan skill yang dipelajari siap memenuhi kebutuhan komersial.",
-    "thumbnail_frame": "/assets/svg/thumbnail.svg",
-    "thumbnail_overlay": "/assets/svg/showcase_img.svg",
-    "url": "https://kolase.fkazu.com",
-    "gallery": [
-      "/assets/svg/showcase_img.svg",
-      "/assets/images/feature/slide1.jpg",
-      "/assets/images/feature/slide2.jpg",
-      "/assets/images/feature/slide3.jpg"
-    ]
-  },
-  {
-    "id": "rit-management",
-    "title_svg": "/assets/svg/showcase_card_title.svg",
+    "id": "rit-base",
+    "title_svg": "/assets/svg/rit-base.org.svg",
     "desc": "Platform internal organisasi untuk manajemen presensi, arsip kegiatan, dan kolaborasi divisi. Dibangun dengan pendekatan Jamstack modern yang tangguh, cepat, dan terdesentralisasi.",
     "thumbnail_frame": "/assets/svg/thumbnail.svg",
-    "thumbnail_overlay": "/assets/images/metaverse/thumbnail_pic1.png",
+    "thumbnail_overlay": "/assets/images/rit-base.png",
     "url": "https://rit-base.org",
     "gallery": [
-      "/assets/images/metaverse/thumbnail_pic1.png",
-      "/assets/images/feature/slide4.jpg",
-      "/assets/images/feature/slide5.jpg"
+      "/assets/images/(hero)landing.webp",
+      "/assets/images/dashboard.webp",
+      "/assets/images/kegiatan.webp",
+      "/assets/images/manajemen-proyek.webp",
+      "/assets/images/projects.webp"
     ]
   },
   {
-    "id": "smart-room-iot",
-    "title_svg": "/assets/svg/showcase_card_title.svg",
-    "desc": "Sistem otomasi ruangan kampus berbasis micro-controller ESP32 dan protokol MQTT. Mengatur pencahayaan, suhu, dan akses pintu secara otomatis dari antarmuka web mobile.",
+    "id": "nutrigrow",
+    "title_svg": "/assets/svg/nutrigrow.svg",
+    "desc": "Aplikasi monitoring nutrisi makanan yang dikonsumsi. Dilengkapi dashboard, input data, pemantauan real-time, dan profil pengguna.",
     "thumbnail_frame": "/assets/svg/thumbnail.svg",
-    "thumbnail_overlay": "/assets/images/metaverse/thumbnail_pic2.png",
-    "url": "",
+    "thumbnail_overlay": "/assets/images/nutrigrow.png",
+    "url": "#",
     "gallery": [
-      "/assets/images/metaverse/thumbnail_pic2.png",
-      "/assets/images/feature/slide2.jpg",
-      "/assets/images/feature/slide4.jpg"
+      "/assets/images/(hero)load.jpg",
+      "/assets/images/add-data.jpg",
+      "/assets/images/dashboard.jpg",
+      "/assets/images/monitor.jpg",
+      "/assets/images/profile.jpg"
+    ]
+  },
+  {
+    "id": "smart-farm",
+    "title_svg": "/assets/svg/smart-farm.svg",
+    "desc": "Sistem smart farming berbasis IoT untuk greenhouse. Memantau kondisi lingkungan dan mengontrol perangkat secara otomatis melalui dashboard terintegrasi.",
+    "thumbnail_frame": "/assets/svg/thumbnail.svg",
+    "thumbnail_overlay": "/assets/images/greenhouse.png",
+    "url": "#",
+    "gallery": [
+      "/assets/images/(hero)greenhouse.png"
+    ]
+  },
+  {
+    "id": "ctf-rit",
+    "title_svg": "/assets/svg/rit-ctf.svg",
+    "desc": "Platform Capture The Flag internal RIT untuk latihan keamanan siber. Menyediakan challenge, dashboard, dan leaderboard kompetisi.",
+    "thumbnail_frame": "/assets/svg/thumbnail.svg",
+    "thumbnail_overlay": "/assets/images/ctf-rit.png",
+    "url": "https://ctfuts-fkom.vercel.app/",
+    "gallery": [
+      "/assets/images/(hero)login.webp",
+      "/assets/images/dashboard-ctf.webp",
+      "/assets/images/challenge.webp",
+      "/assets/images/leaderboard.webp"
+    ]
+  },
+  {
+    "id": "expo",
+    "title_svg": "/assets/svg/rit-expo.svg",
+    "desc": "Galeri virtual pameran karya RIT. Menampilkan halaman utama eksibisi dan detail proyek secara interaktif.",
+    "thumbnail_frame": "/assets/svg/thumbnail.svg",
+    "thumbnail_overlay": "/assets/images/expo.png",
+    "url": "https://rit-base.github.io/Expo/",
+    "gallery": [
+      "/assets/images/(hero)main-page.png",
+      "/assets/images/detail.png"
     ]
   }
 ]
