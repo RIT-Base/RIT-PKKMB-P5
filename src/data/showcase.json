@@ -20,7 +20,7 @@
     "desc": "Aplikasi monitoring nutrisi makanan yang dikonsumsi. Dilengkapi dashboard, input data, pemantauan real-time, dan profil pengguna.",
     "thumbnail_frame": "/assets/svg/thumbnail.svg",
     "thumbnail_overlay": "/assets/images/nutrigrow.png",
-    "url": "#",
+    "url": "",
     "gallery": [
       "/assets/images/(hero)load.jpg",
       "/assets/images/add-data.jpg",
@@ -35,7 +35,7 @@
     "desc": "Sistem smart farming berbasis IoT untuk greenhouse. Memantau kondisi lingkungan dan mengontrol perangkat secara otomatis melalui dashboard terintegrasi.",
     "thumbnail_frame": "/assets/svg/thumbnail.svg",
     "thumbnail_overlay": "/assets/images/greenhouse.png",
-    "url": "#",
+    "url": "",
     "gallery": [
       "/assets/images/(hero)greenhouse.png"
     ]
